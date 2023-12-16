@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "my-module-playground",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi generate"
+  },
+  "devDependencies": {
+    "nuxt": "latest",
+    "typescript": "^5.0.3",
+    "vue-tsc": "^1.2.0"
+  }
+}
