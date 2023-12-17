@@ -25,6 +25,10 @@ export default defineNuxtPlugin(() => {
   addRouteMiddleware("auth", authMiddleware, { ...auth.middleware });
   // @ts-ignore
   const authService = new Auth($fetch);
+  if (auth.useGlobalFetch) {
+    globalThis.$fetch = authService.$fetch;
+  }
+
   return {
     provide: {
       auth: authService,

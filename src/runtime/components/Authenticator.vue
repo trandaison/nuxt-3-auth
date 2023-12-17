@@ -3,6 +3,7 @@ import { useRoute } from 'vue-router';
 import { computed, ref } from 'vue';
 
 import { useLogin } from '../composables/useLogin';
+import { AuthStatus } from '../utils';
 
 type Props = {
   title?: string;
@@ -41,8 +42,8 @@ const { credentials, pending, errorMsg, error, login, resetError } = useLogin({
 const route = useRoute();
 const status = ref<string | null>(String(route.query.status) ?? null);
 
-const isSessionExpired = computed(() => status.value === '440');
-const isUnauthorized = computed(() => status.value === '401');
+const isSessionExpired = computed(() => status.value === AuthStatus.Expired);
+const isUnauthorized = computed(() => status.value === AuthStatus.Unauthorized);
 
 const feedbackMessage = computed(() => {
   if (errorMsg.value) return errorMsg.value;
@@ -219,21 +220,18 @@ const dissmiss = () => {
     color: #fff;
 
     &--info {
-      color: #909399;
-      background-color: rgba(#909399, 0.1);
-      border: 1px solid #909399;
+      color: #777b83;
+      background-color: rgba(#777b83, 0.1);
     }
 
     &--warning {
       color: #e6a23c;
       background-color: rgba(#e6a23c, 0.1);
-      border: 1px solid #e6a23c;
     }
 
     &--error {
       color: #f56c6c;
       background-color: rgba(#f56c6c, 0.1);
-      border: 1px solid #f56c6c;
     }
   }
 }

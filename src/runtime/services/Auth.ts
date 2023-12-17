@@ -78,6 +78,10 @@ export class Auth implements AuthService {
     return this.storage.persistent != null;
   }
 
+  get $fetch() {
+    return this.httpService.$fetch;
+  }
+
   async login<T = unknown>(
     credentials: Record<string, unknown>,
     { sessionOnly = false } = {}
@@ -109,7 +113,9 @@ export class Auth implements AuthService {
     try {
       this.fetchUserPromise ??= this.httpService.call<T>(
         this.config.endpoints.user.method,
-        this.config.endpoints.user.url
+        this.config.endpoints.user.url,
+        undefined,
+        { auth: true }
       );
       const res = await this.fetchUserPromise;
       const data = this.getProperty(res, 'user');

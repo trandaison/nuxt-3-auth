@@ -6,13 +6,13 @@ import AuthStorage from './runtime/services/AuthStorage';
 
 declare module "#app" {
   interface PageMeta {
-    auth: "guest" | boolean;
+    auth: AuthPageMeta;
   }
 }
 
 declare module "ofetch" {
   interface FetchOptions {
-    auth?: boolean;
+    auth?: AuthFetchOption;
   }
 }
 
@@ -72,6 +72,9 @@ export interface AuthConfig {
   middleware: MiddlewareOptions;
   rewriteRedirects: boolean;
   routes: Record<string, AuthRouteRaw>;
+  debug: boolean;
+  plugins: string[];
+  useGlobalFetch: boolean;
 }
 
 export interface AuthOptions {
@@ -83,6 +86,9 @@ export interface AuthOptions {
   redirect?: Partial<RedirectOptions>;
   rewriteRedirects?: boolean;
   routes?: Record<string, AuthRouteRaw>;
+  debug?: boolean;
+  plugins?: string[];
+  useGlobalFetch?: boolean;
 }
 
 export type AuthTokens = { token: string; refresh_token: string };
@@ -114,3 +120,9 @@ export interface AuthService {
   refreshTokens<T = unknown>(): Promise<T>;
   setReferer(url: string | null): void;
 }
+
+export type AuthStatus = 'unauthorized' | 'expired';
+
+export type AuthPageMeta = 'guest' | boolean;
+
+export type AuthFetchOption = "optional" | boolean;

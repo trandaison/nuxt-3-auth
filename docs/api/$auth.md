@@ -218,7 +218,7 @@ const { $auth } = useNuxtApp();
 $auth.logout();
 ```
 
-Thực hiện logout. Truyền vào `callApi = false` để logut phía client side-only.
+Thực hiện logout. Truyền vào `callApi = false` để logout phía client-side only.
 
 ### `refreshTokens`
 

@@ -1,6 +1,17 @@
 <script lang="ts" setup>
 const { $auth } = useNuxtApp();
 const { user, loggedIn } = $auth;
+
+function fetchUser() {
+  $auth.fetchUser()
+    .then(() => {
+      alert('User fetched successfully!');
+    })
+    .catch((err) => {
+      alert('Error fetching user, please check the console.');
+      console.error(err);
+    });
+}
 </script>
 
 <template>
@@ -17,5 +28,27 @@ const { user, loggedIn } = $auth;
     <p>
       Go the <nuxt-link to="/private">private page</nuxt-link> to see a private page.
     </p>
+    <p>
+      Or fetch user to see if the token is attached to the request: <button @click="fetchUser">Fetch user</button>
+    </p>
   </div>
 </template>
+
+<style>
+button {
+  background-color: #03963b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1fb659;
+}
+
+button:active {
+  background-color: #1aa653;
+}
+</style>

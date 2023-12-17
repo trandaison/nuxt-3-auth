@@ -1,3 +1,5 @@
+export * from './config';
+
 export function middleTruncate(
   text: string,
   { leftLimit = 100, rightLimit = 10, ellipsis = '[...]' } = {}

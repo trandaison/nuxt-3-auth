@@ -62,7 +62,7 @@ export const useLogin = ({
     return $auth
       .login(payload, options)
       .then(async (res) => {
-        await navigateTo(redirectPath);
+        await navigateTo(redirectPath, { replace: true });
         return res;
       })
       .catch((_error) => {

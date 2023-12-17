@@ -23,7 +23,7 @@ declare module "@nuxt/schema" {
 
 const resolver = createResolver(import.meta.url);
 
-export default defineNuxtModule({
+export default defineNuxtModule<AuthOptions>({
   meta: {
     name: "auth-module",
     configKey: "auth",
@@ -86,6 +86,9 @@ export default defineNuxtModule({
         file: resolver.resolve("./runtime/pages/logout.vue"),
       },
     },
+    debug: false,
+    plugins: [],
+    useGlobalFetch: true,
   },
   setup(moduleOptions, nuxt) {
     nuxt.options.runtimeConfig.public.auth = defu(
@@ -121,6 +124,12 @@ export default defineNuxtModule({
     });
 
     addPlugin(resolver.resolve("./runtime/plugin.ts"));
+
+    // Register auth plugins
+    const { plugins } = nuxt.options.runtimeConfig.public.auth;
+    plugins.forEach((plugin) => {
+      addPlugin(resolver.resolve(plugin));
+    });
 
     // Pinia store modules are auto imported
   },

@@ -7,6 +7,7 @@ import {
   useNuxtApp,
   useRuntimeConfig,
 } from 'nuxt/app';
+import { AuthStatus } from '../utils';
 
 export default async function authMiddleware(to: RouteLocationNormalized) {
   const nuxtApp = useNuxtApp();
@@ -20,7 +21,7 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
   const loginPath = authConfig.redirect.login ?? '/login';
   const loginRoute = localizeRoute({
     path: loginPath,
-    query: { status: 'unauthorized' },
+    query: { status: AuthStatus.Unauthorized },
   });
   const logoutPath = authConfig.redirect.logout ?? '/';
 
@@ -61,7 +62,7 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
         return callWithNuxt(nuxtApp, navigateTo, [
           localizeRoute({
             path: loginPath,
-            query: { status: 'session-expired' },
+            query: { status: AuthStatus.Expired },
           }).fullPath,
         ]);
       }

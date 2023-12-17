@@ -203,7 +203,7 @@ redirect: {
 ## `rewriteRedirects`
 
 ```ts
-rewriteRedirects: true,
+rewriteRedirects: boolean = true;
 ```
 
 - Set `true` để bật chức năng chuyển hướng đến trang đã truy cập trước đó trước khi bị chuyển hướng đến trang login thay vì bị chuyển hướng đến `redirect.home`.
@@ -239,3 +239,34 @@ logout: {
 - `name` Tên của route.
 - `file` Đường dẫn tới file page component.
 - `path` Đường dẫn trên URL.
+
+## `debug`
+
+```ts
+debug: boolean = false;
+```
+
+Set `true` để bật chế độ debug, ở chế độ debug, các response từ API sẽ được log ra console.
+
+## `plugins`
+
+```ts
+plugins: string[] = [];
+```
+
+Nếu bạn có plugin nào cần sử dụng `$auth` thì bạn có thể đăng ký ở đây.
+
+## `useGlobalFetch`
+
+```ts
+useGlobalFetch: boolean = true;
+```
+
+Mặc định module này sẽ setup các interceptors trên global `$fetch`. Nếu bạn muốn tắt chức năng này thì bạn có thể set `useGlobalFetch` là `false` và sử dụng `$fetch` instance của module thông qua `$auth`.
+
+```ts
+const $auth = useNuxtApp();
+const { $fetch } = $auth;
+
+$fetch('https://example.com/api/users');
+```
