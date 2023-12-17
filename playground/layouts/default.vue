@@ -41,6 +41,9 @@ const { loggedIn } = $auth;
 </template>
 
 <style>
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: system-ui;
   margin: 0;

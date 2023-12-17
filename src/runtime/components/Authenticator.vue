@@ -79,7 +79,12 @@ const dissmiss = () => {
     @submit.prevent="() => login(credentials, { sessionOnly: false })"
   >
     <slot name="title">
-      <h1 v-if="title">{{ title }}</h1>
+      <h1
+        v-if="title"
+        class="title"
+      >
+        {{ title }}
+      </h1>
     </slot>
 
     <slot
@@ -104,7 +109,7 @@ const dissmiss = () => {
         class="input-email"
         autocomplete="off"
         :placeholder="placeholderEmail"
-      />
+      >
     </div>
     <div class="form-item">
       <label for="password">{{ labelPassword }}</label>
@@ -115,16 +120,22 @@ const dissmiss = () => {
         type="password"
         autocomplete="off"
         :placeholder="placeholderPassword"
-      />
+      >
     </div>
-    <slot name="append" v-bind="{ credentials }" />
+    <slot
+      name="append"
+      v-bind="{ credentials }"
+    />
 
     <div class="text-center">
-      <slot name="submit">
+      <slot
+        name="submit"
+        v-bind="{ pending }"
+      >
         <button
           type="submit"
           :disabled="pending"
-          class="btn-submit el-button el-button--primary"
+          class="btn-submit"
         >
           {{ btnSubmit }}
         </button>
@@ -136,62 +147,93 @@ const dissmiss = () => {
 <style lang="scss" scoped>
 .css-on {
   input {
-    --el-input-inner-height: calc(var(--el-input-height, 32px) - 2px);
-
-    padding: 1px 11px;
-    background-color: var(--el-input-bg-color, var(--el-fill-color-blank));
-    background-image: none;
-    border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
-    transition: var(--el-transition-box-shadow);
-    transform: translateZ(0);
-    box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color))
-      inset;
-    width: 100%;
-    color: var(--el-input-text-color, var(--el-text-color-regular));
-    font-size: inherit;
-    height: var(--el-input-inner-height);
-    line-height: var(--el-input-inner-height);
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    line-height: 1.5;
+    background-color: #fff;
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
     outline: none;
-    border: none;
-    box-sizing: border-box;
-  }
+    font-size: inherit;
 
-  label {
-    display: inline-flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    flex: 0 0 auto;
-    font-size: var(--el-form-label-font-size);
-    color: var(--el-text-color-regular);
-    height: 32px;
-    line-height: 32px;
-    padding: 0 12px 0 0;
-    box-sizing: border-box;
-  }
-
-  button {
-    &[disabled] {
-      opacity: 0.65;
-      pointer-events: none;
+    &:focus {
+      border-color: #03963b;
     }
+  }
+
+  .title {
+    text-align: center;
   }
 
   .form-item {
-    & + .form-item {
-      /* @apply mt-4; */
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      line-height: 1.5;
+      color: #606266;
     }
   }
 
-  .feedback {
-    /* @apply text-center whitespace-pre-wrap mb-2; */
+  .btn-submit {
+    padding: 0.5625rem 2rem;
+    font-size: inherit;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    outline: none;
+    border: none;
+    background-color: #03963b;
+    color: #fff;
 
-    &--error {
-      /* @apply text-red-600; */
+    &:hover {
+      background-color: #1fb659;
     }
 
-    &--warning,
+    &:active {
+      background-color: #1aa653;
+    }
+
+    &:disabled {
+      opacity: 0.65;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .feedback {
+    font-size: inherit;
+    line-height: 1.5;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #fff;
+
     &--info {
-      /* @apply text-gray-600; */
+      color: #909399;
+      background-color: rgba(#909399, 0.1);
+      border: 1px solid #909399;
+    }
+
+    &--warning {
+      color: #e6a23c;
+      background-color: rgba(#e6a23c, 0.1);
+      border: 1px solid #e6a23c;
+    }
+
+    &--error {
+      color: #f56c6c;
+      background-color: rgba(#f56c6c, 0.1);
+      border: 1px solid #f56c6c;
     }
   }
 }

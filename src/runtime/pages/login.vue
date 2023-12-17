@@ -9,13 +9,19 @@ definePageMeta({
 
 <template>
   <div>
-    <div class="w-full max-w-80 mx-auto">
-      <h1 class="text-center mb-5">
-        Login
-      </h1>
+    <div class="login-container">
       <authenticator
+        title="Login"
         :credentials="{ email: '', password: '', remember_me: true }"
       />
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+</style>
