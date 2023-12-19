@@ -31,8 +31,7 @@ export default class HttpService {
         Accept: "application/json",
       },
 
-      onRequest: ({ options, request }) => {
-        console.log("onRequest", request);
+      onRequest: ({ options }) => {
         options.headers = (options.headers || {}) as Record<string, string>;
         const authOption = options.auth ?? true;
         // options.auth = true or 'optional'

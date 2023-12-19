@@ -26,10 +26,14 @@ function fetchUser() {
       This home page is public, both <b>guests</b> and <b>logged in users</b> can see it.
     </p>
     <p>
-      Go the <nuxt-link to="/private">private page</nuxt-link> to see a private page.
+      Go the <nuxt-link to="/private">
+        private page
+      </nuxt-link> to see a private page.
     </p>
     <p>
-      Or fetch user to see if the token is attached to the request: <button @click="fetchUser">Fetch user</button>
+      Or fetch user to see if the token is attached to the request: <button @click="fetchUser">
+        Fetch user
+      </button>
     </p>
   </div>
 </template>

@@ -2,8 +2,6 @@
 import { definePageMeta } from '#imports';
 
 definePageMeta({ auth: true });
-
-const { doLogout } = useLogout();
 </script>
 
 <template>
