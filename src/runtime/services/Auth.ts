@@ -1,11 +1,12 @@
 import type { $Fetch } from 'ofetch';
 import get from 'lodash/get';
+import { useRuntimeConfig } from "#imports";
 import type {
   AuthConfig,
   AuthEndpointOptions,
   AuthService,
   User,
-} from '../../types';
+} from "../../types";
 import AuthStorage from './AuthStorage';
 import HttpService from './HttpService';
 import type { Store } from 'pinia';

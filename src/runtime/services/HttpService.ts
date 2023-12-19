@@ -1,5 +1,5 @@
 import type { $Fetch, FetchContext } from 'ofetch';
-import { callWithNuxt } from '#app';
+import { useRoute, useRouter, callWithNuxt, useNuxtApp } from "#app";
 import { middleTruncate, HTTP_STATUS_UNAUTHORIZED, AuthStatus } from "../utils";
 import type { AuthConfig, AuthService } from '../../types';
 
