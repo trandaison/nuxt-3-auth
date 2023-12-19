@@ -123,7 +123,7 @@ export default defineNuxtModule<AuthOptions>({
       });
     });
 
-    addPlugin(resolver.resolve("./runtime/plugin.ts"));
+    addPlugin(resolver.resolve("./runtime/plugin"));
 
     // Register auth plugins
     const { plugins } = nuxt.options.runtimeConfig.public.auth;
