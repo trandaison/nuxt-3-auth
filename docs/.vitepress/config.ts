@@ -126,4 +126,6 @@ export default defineConfig({
       provider: "local",
     },
   },
+
+  outDir: '../../nuxt-3-auth-docs',
 });

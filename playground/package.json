@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "my-module-playground",
+  "name": "@trandaison/nuxt-3-auth-playground",
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",

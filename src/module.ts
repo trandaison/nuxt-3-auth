@@ -25,7 +25,7 @@ const resolver = createResolver(import.meta.url);
 
 export default defineNuxtModule<AuthOptions>({
   meta: {
-    name: "auth-module",
+    name: "trandaison/nuxt-3-auth",
     configKey: "auth",
     compatibility: {
       nuxt: "^3.0.0",
