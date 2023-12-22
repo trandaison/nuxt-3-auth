@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from 'dayjs/esm';
 import { jwtDecode } from 'jwt-decode';
 import { storeToRefs } from 'pinia';
 import type { CookieOptions } from 'nuxt/app';
