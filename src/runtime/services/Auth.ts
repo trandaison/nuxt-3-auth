@@ -1,5 +1,5 @@
 import type { $Fetch } from 'ofetch';
-import get from 'lodash/get';
+import { get } from 'lodash-es';
 import { useRuntimeConfig } from "#imports";
 import type {
   AuthConfig,
