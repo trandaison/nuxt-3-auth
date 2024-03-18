@@ -2,7 +2,11 @@ export default defineNuxtConfig({
   experimental: {
     appManifest: false,
   },
-  modules: ["@pinia/nuxt", "../src/module"],
+  modules: ["@pinia/nuxt", "../src/module", "@nuxtjs/i18n"],
+  i18n: {
+    locales: ["en", "fr"],
+    vueI18n: "i18n.config.ts",
+  },
   auth: {
     endpoints: {
       baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
@@ -45,6 +49,7 @@ export default defineNuxtConfig({
       home: "/",
     },
     rewriteRedirects: true,
+    useI18n: true,
   },
   devtools: { enabled: true },
 });

@@ -3,32 +3,34 @@ import { useNuxtApp } from '#imports';
 
 const { $auth } = useNuxtApp();
 const { loggedIn } = $auth;
+
+const { localeRoute } = useLocalizeRoute();
 </script>
 
 <template>
   <div id="__layout">
     <nav>
-      <nuxt-link to="/">
+      <nuxt-link :to="localeRoute('/')">
         <h1>Nuxt-3-Auth module</h1>
       </nuxt-link>
       <ul>
         <li>
-          <nuxt-link to="/">
+          <nuxt-link :to="localeRoute('/')">
             Home
           </nuxt-link>
         </li>
         <li>
-          <nuxt-link to="/private">
+          <nuxt-link :to="localeRoute('/private')">
             Private
           </nuxt-link>
         </li>
         <li v-if="loggedIn">
-          <nuxt-link to="/logout">
+          <nuxt-link :to="localeRoute('/logout')">
             Logout
           </nuxt-link>
         </li>
         <li v-else>
-          <nuxt-link to="/login">
+          <nuxt-link :to="localeRoute('/login')">
             Login
           </nuxt-link>
         </li>

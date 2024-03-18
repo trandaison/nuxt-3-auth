@@ -1,8 +1,4 @@
-import {
-  defineNuxtPlugin,
-  useRuntimeConfig,
-  addRouteMiddleware,
-} from 'nuxt/app';
+import { defineNuxtPlugin, useRuntimeConfig, addRouteMiddleware } from "#app";
 import { Auth } from "./services/Auth";
 import authMiddleware from "./middleware/auth";
 
@@ -12,7 +8,7 @@ declare module "#app" {
   }
 }
 
-declare module "nuxt/dist/app/nuxt" {
+declare module "vue" {
   interface NuxtApp {
     $auth: Auth;
   }

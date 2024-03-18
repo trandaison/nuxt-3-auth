@@ -34,12 +34,12 @@ export class Auth implements AuthService {
     return this.storage.user;
   }
 
-  get store(): Store<'auth', State, Getters, Actions> {
+  get store(): Store<"auth", State, Getters, Actions> {
     return this.storage.authStore;
   }
 
   get redirectPath() {
-    let redirectPath = this.config.redirect.home ?? '/';
+    let redirectPath = this.config.redirect.home ?? "/";
 
     if (this.config.rewriteRedirects && this.storage.referer.value) {
       redirectPath = this.storage.referer.value;
@@ -94,9 +94,9 @@ export class Auth implements AuthService {
         credentials
       );
       const res = await this.loginPromise;
-      const data = this.getProperty(res, 'login');
-      const token = this.getToken(data, 'token');
-      const refresh_token = this.getToken(data, 'refreshToken');
+      const data = this.getProperty(res, "login");
+      const token = this.getToken(data, "token");
+      const refresh_token = this.getToken(data, "refreshToken");
       this.storage.setAuth({ token, refresh_token });
       this.storage.setPersistent(!sessionOnly);
       await this.fetchUser();
@@ -119,7 +119,7 @@ export class Auth implements AuthService {
         { auth: true }
       );
       const res = await this.fetchUserPromise;
-      const data = this.getProperty(res, 'user');
+      const data = this.getProperty(res, "user");
       this.storage.setUser(data);
       return data;
     } catch (error) {
@@ -147,20 +147,20 @@ export class Auth implements AuthService {
     }
   }
 
-  async refreshTokens<T = unknown>(): Promise<T> {
+  async refreshTokens() {
     try {
       const { refreshToken } = this.storage;
-      this.refreshTokensPromise ??= this.httpService.call<T>(
+      this.refreshTokensPromise ??= this.httpService.call(
         this.config.endpoints.refresh.method,
         this.config.endpoints.refresh.url,
         { [this.config.refreshToken.paramName]: refreshToken }
       );
       const res = await this.refreshTokensPromise;
-      const data = this.getProperty(res, 'refresh');
-      const token = this.getToken(data, 'token');
-      const refresh_token = this.getToken(data, 'refreshToken');
+      const data = this.getProperty(res, "refresh");
+      const token = this.getToken(data, "token");
+      const refresh_token = this.getToken(data, "refreshToken");
       this.storage.setAuth({ token, refresh_token });
-      return data;
+      return { token, refresh_token };
     } catch (error) {
       this.logout(false);
       return Promise.reject(error);
@@ -175,13 +175,13 @@ export class Auth implements AuthService {
 
   protected getProperty(
     response: any,
-    key: Exclude<keyof AuthEndpointOptions, 'baseUrl'>
+    key: Exclude<keyof AuthEndpointOptions, "baseUrl">
   ) {
     const { property } = this.config.endpoints[key];
     return property ? get(response, property) : response;
   }
 
-  protected getToken(data: any, type: 'token' | 'refreshToken') {
+  protected getToken(data: any, type: "token" | "refreshToken") {
     const { property } = this.config[type];
     return get(data, property);
   }

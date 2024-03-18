@@ -1,5 +1,5 @@
 import type { RawLocation } from '@intlify/vue-router-bridge';
-import { useNuxtApp, navigateTo } from "nuxt/app";
+import { useNuxtApp, navigateTo } from "#app";
 import { ref, computed } from "vue";
 
 export interface UseLoginOptions {
@@ -11,13 +11,14 @@ export interface UseLoginOptions {
 }
 
 export const useLogin = ({
-  redirectPath: referer = '/',
+  redirectPath: referer = "/",
   credentials: initials,
   persistent: initialPersistent = true,
-  invalidErrorMessage = 'Invalid login credentials',
-  otherErrorMessage = 'An error has occurred',
+  invalidErrorMessage = "Invalid login credentials",
+  otherErrorMessage = "An error has occurred",
 }: UseLoginOptions = {}) => {
   const { $auth } = useNuxtApp();
+  const { localeRoute } = useLocalizeRoute();
   const credentials = ref({ ...initials });
   const persistent = ref(initialPersistent);
   const pending = ref(false);
@@ -39,7 +40,7 @@ export const useLogin = ({
 
   const invalid = computed(() => {
     return Object.keys(credentials.value as object).some(
-      (entry) => String((credentials.value as any)[entry] ?? '') === ''
+      (entry) => String((credentials.value as any)[entry] ?? "") === ""
     );
   });
 
@@ -53,7 +54,7 @@ export const useLogin = ({
     }
 
     pending.value = true;
-    const redirectPath = $auth.redirectPath || referer || '/';
+    const redirectPath = localeRoute($auth.redirectPath || referer || "/");
     resetError();
 
     const payload = params ?? credentials.value;

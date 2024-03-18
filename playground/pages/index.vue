@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 const { $auth } = useNuxtApp();
 const { user, loggedIn } = $auth;
+const { localeRoute } = useLocalizeRoute();
 
 function fetchUser() {
   $auth.fetchUser()
@@ -26,7 +27,7 @@ function fetchUser() {
       This home page is public, both <b>guests</b> and <b>logged in users</b> can see it.
     </p>
     <p>
-      Go the <nuxt-link to="/private">
+      Go the <nuxt-link :to="localeRoute('/private')">
         private page
       </nuxt-link> to see a private page.
     </p>

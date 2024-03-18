@@ -8,6 +8,7 @@
     "generate": "nuxi generate"
   },
   "devDependencies": {
+    "@nuxtjs/i18n": "^8.2.0",
     "nuxt": "latest",
     "typescript": "^5.0.3",
     "vue-tsc": "^1.2.0"

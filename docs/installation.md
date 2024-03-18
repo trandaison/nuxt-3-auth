@@ -21,13 +21,19 @@ Khai báo module trong file `nuxt.config.ts`
 ```js{4}
 modules: [
   '@pinia/nuxt',
-  '@nuxtjs/i18n',
   '@trandaison/nuxt-3-auth',
+  '@nuxtjs/i18n',
 ],
 ```
 
 :::tip
 Vì module `@trandaison/nuxt-3-auth` có sử dụng Pinia nên module `@pinia/nuxt` cần phải khai báo trước `@trandaison/nuxt-3-auth`.
+:::
+
+:::tip
+Module `@nuxtjs/i18n` (nếu có) nên khai báo sau module `@trandaison/nuxt-3-auth` sẽ đảm bảo các built-in pages (login, logout) họat động đầy đủ với các localize khác nhau.
+
+Xem thêm về cách tích hợp với module i18n tại [API > Options > useI18n](/api/options#usei18n)
 :::
 
 # Configurations

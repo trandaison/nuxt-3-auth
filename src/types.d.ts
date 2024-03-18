@@ -75,6 +75,7 @@ export interface AuthConfig {
   debug: boolean;
   plugins: string[];
   useGlobalFetch: boolean;
+  useI18n: boolean;
 }
 
 export interface AuthOptions {
@@ -89,6 +90,7 @@ export interface AuthOptions {
   debug?: boolean;
   plugins?: string[];
   useGlobalFetch?: boolean;
+  useI18n?: boolean;
 }
 
 export type AuthTokens = { token: string; refresh_token: string };
@@ -102,7 +104,7 @@ export interface AuthService {
   httpService: HttpService;
   storage: AuthStorage;
   readonly user: Ref<User | null>;
-  readonly store: Store<'auth', State, Getters, Actions>;
+  readonly store: Store<"auth", State, Getters, Actions>;
   readonly redirectPath: string;
   readonly accessToken: string | null | undefined;
   readonly refreshToken: string | null | undefined;
@@ -117,7 +119,7 @@ export interface AuthService {
   ): Promise<T>;
   fetchUser<T = unknown>(): Promise<T>;
   logout(callApi?: boolean): Promise<void>;
-  refreshTokens<T = unknown>(): Promise<T>;
+  refreshTokens(): Promise<{ token: string; refresh_token?: string }>;
   setReferer(url: string | null): void;
 }
 

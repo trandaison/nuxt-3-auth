@@ -39,6 +39,13 @@ Option `auth` nhận các giá trị sau:
 - `auth: false`: dùng cho những request không yêu cầu phải đăng nhập. **Access token dù tồn tại cũng sẽ không được đính kèm vào request header** khi thực hiện request. Do đó, nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức.
 - `auth: 'optional'`: dùng cho những request có hoặc không yêu cầu phải đăng nhập. Access token (nếu có) sẽ được đính kèm vào request header, tuy nhiên nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức.
 
+
+| Giá trị | Mô tả | Tự động kèm Access token trong headers | Tự động refresh token |
+| --- | --- | --- | --- |
+| `true` | Dùng cho những API requests yêu cầu phải đăng nhập | ✅ | ✅ |
+| `false` | Dùng cho những API requests yêu cầu KHÔNG đăng nhập | ❌ | ❌ |
+| `'optional'` | Dùng cho những API requests có hoặc không yêu cầu phải đăng nhập | ✅ | ❌ |
+
 ## Interception và refresh token
 
 Mặc định, module sẽ tự động thực hiện refresh token khi gọi API và nhận được response lỗi `401 Unauthorized`.

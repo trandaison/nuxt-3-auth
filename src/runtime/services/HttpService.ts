@@ -31,18 +31,9 @@ export default class HttpService {
         Accept: "application/json",
       },
 
-      onRequest: ({ options }) => {
-        options.headers = (options.headers || {}) as Record<string, string>;
-        const authOption = options.auth ?? true;
-        // options.auth = true or 'optional'
-        if (authOption !== false && this.$auth.accessToken) {
-          options.headers[headerName] = `${type} ${this.$auth.accessToken}`;
-        } else {
-          options.headers[headerName] = "";
-        }
-      },
+      onRequest: this.onRequest.bind(this),
 
-      onResponseError: async (context) => {
+      onResponse: async (context) => {
         this.debugResponse(context);
         const { response, options, request } = context;
         const isUnauthorized = response.status === HTTP_STATUS_UNAUTHORIZED;
@@ -60,9 +51,12 @@ export default class HttpService {
           await this.$auth.refreshTokens();
           options.headers = (options.headers || {}) as Record<string, string>;
           options.headers[headerName] = `${type} ${this.$auth.accessToken}`;
-          const retryResponse = await this.$fetch(request, options);
-          context.error = undefined;
-          context.response = retryResponse;
+          await this.$fetch(request, {
+            onRequest: this.onRequest.bind(this),
+            onResponse(ctx) {
+              Object.assign(context, ctx);
+            },
+          });
         } catch {
           await this.onAuthFailure(AuthStatus.Expired);
         }
@@ -84,6 +78,18 @@ export default class HttpService {
     });
 
     return res;
+  }
+
+  private onRequest(context: FetchContext) {
+    const { options } = context;
+    const { headerName, type } = this.$configs.token;
+    options.headers = (options.headers || {}) as Record<string, string>;
+    const authOption = options.auth ?? true;
+    if (authOption !== false && this.$auth.accessToken) {
+      options.headers[headerName] = `${type} ${this.$auth.accessToken}`;
+    } else {
+      options.headers[headerName] = "";
+    }
   }
 
   private debugResponse({ response, options, request }: FetchContext) {

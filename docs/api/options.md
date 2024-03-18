@@ -197,8 +197,8 @@ redirect: {
 ```
 
 - `login` Đường dẫn tới trang login. Khi truy cập trang có page meta `auth = true` mà chưa login sẽ bị chuyển hướng đến trang này.
-- `logout` Đường dẫn tới trang sau khi logout hoặc đã login nhưng vẫn truy cập vào trang dành cho `guest`.
-- `home` Đường dẫn tới trang sau khi login. [`rewriteRedirects`](#rewriteredirects) sẽ override đường dẫn này.
+- `logout` Đường dẫn tới trang sau khi logout.
+- `home` Đường dẫn tới trang sau khi login. [`rewriteRedirects`](#rewriteredirects) sẽ override đường dẫn này. Hoặc trong trường hợp người dùng đã login nhưng đang thực hiện truy cập đến các trang có page meta `auth = 'guest'` (ví dụ trang login) thì sẽ bị chuyển hướng đến đường dẫn này.
 
 ## `rewriteRedirects`
 
@@ -270,3 +270,11 @@ const { $fetch } = $auth;
 
 $fetch('https://example.com/api/users');
 ```
+
+## `useI18n`
+
+```ts
+useI18n: boolean = false;
+```
+
+Set `useI18n = true` nếu bạn có tích hợp module [nuxtjs/i18n](https://i18n.nuxtjs.org/) trong dự án, khi đó các đường dẫn để redirect sẽ được tạo ra qua các composition `useLocalePath` và `useLocaleRoute` của i18n, giúp localize các đường dẫn khi redirect.

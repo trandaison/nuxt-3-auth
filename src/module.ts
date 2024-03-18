@@ -4,7 +4,9 @@ import {
   addPlugin,
   addComponent,
   createResolver,
+  addTemplate,
 } from "@nuxt/kit";
+import { generate as generateUseLocalizeRouteTemplate } from "./templates/composables/useLocalizeRoute.template";
 import type { AuthOptions, AuthConfig } from "./types";
 
 declare module "@nuxt/schema" {
@@ -89,12 +91,23 @@ export default defineNuxtModule<AuthOptions>({
     debug: false,
     plugins: [],
     useGlobalFetch: true,
+    useI18n: false,
   },
-  setup(moduleOptions, nuxt) {
+  async setup(moduleOptions, nuxt) {
     nuxt.options.runtimeConfig.public.auth = defu(
       nuxt.options.runtimeConfig.public.auth,
       { ...moduleOptions }
     );
+
+    const { useI18n } = nuxt.options.runtimeConfig.public.auth;
+
+    // Create `useLocalizeRoute` composable file
+    addTemplate({
+      filename: "useLocalizeRoute.mjs",
+      dst: resolver.resolve("./runtime/composables/useLocalizeRoute.ts"),
+      write: true,
+      getContents: () => generateUseLocalizeRouteTemplate({ useI18n }),
+    });
 
     // Auto register components
     nuxt.hook("components:dirs", (dirs) => {

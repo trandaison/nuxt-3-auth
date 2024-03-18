@@ -1,13 +1,8 @@
 /* eslint-disable consistent-return */
 import type { RouteLocationNormalized } from 'vue-router';
-import { useLocalizeRoute } from '../composables/useLocalizeRoute';
-import {
-  navigateTo,
-  callWithNuxt,
-  useNuxtApp,
-  useRuntimeConfig,
-} from 'nuxt/app';
-import { AuthStatus } from '../utils';
+import { navigateTo, callWithNuxt, useNuxtApp, useRuntimeConfig } from "#app";
+import { useLocalizeRoute } from "../composables/useLocalizeRoute";
+import { AuthStatus } from "../utils";
 
 export default async function authMiddleware(to: RouteLocationNormalized) {
   const nuxtApp = useNuxtApp();
@@ -16,20 +11,20 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
   const {
     public: { auth: authConfig },
   } = useRuntimeConfig();
-  const localizeRoute = useLocalizeRoute();
+  const { localeRoute } = useLocalizeRoute();
 
-  const loginPath = authConfig.redirect.login ?? '/login';
-  const loginRoute = localizeRoute({
+  const loginPath = authConfig.redirect.login ?? "/login";
+  const loginRoute = localeRoute({
     path: loginPath,
     query: { status: AuthStatus.Unauthorized },
   });
-  const logoutPath = authConfig.redirect.logout ?? '/';
+  const homePath = localeRoute(authConfig.redirect.home ?? "/");
 
   const isLoggedIn = $auth.hasTokens;
-  const isGuestAuth = authMeta === 'guest';
+  const isGuestAuth = authMeta === "guest";
   const isAuthRequired = authMeta === true;
   const isAuthDefined = authMeta && !isLoggedIn;
-  const shouldSetReferer = String(authMeta) !== 'guest' && isLoggedIn;
+  const shouldSetReferer = String(authMeta) !== "guest" && isLoggedIn;
   const isCurrentRouteLogin = String(to.name) === String(loginRoute?.name);
 
   if (isLoggedIn && !$auth.isPersistent) {
@@ -39,7 +34,7 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
 
   if (isGuestAuth) {
     if (isLoggedIn) {
-      return navigateTo(logoutPath);
+      return navigateTo(homePath);
     }
     return;
   }
@@ -60,10 +55,10 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
       if (isAuthRequired) {
         if (shouldSetReferer) $auth.setReferer(to.fullPath);
         return callWithNuxt(nuxtApp, navigateTo, [
-          localizeRoute({
+          localeRoute({
             path: loginPath,
             query: { status: AuthStatus.Expired },
-          }).fullPath,
+          })?.fullPath,
         ]);
       }
     }
@@ -71,6 +66,10 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
 
   if (isAuthDefined && !isCurrentRouteLogin) {
     $auth.setReferer(to.fullPath);
-    return callWithNuxt(nuxtApp, navigateTo, [loginRoute.fullPath]);
+    console.log(
+      "🚀 ~ authMiddleware ~ loginRoute?.fullPath:",
+      loginRoute?.fullPath
+    );
+    return callWithNuxt(nuxtApp, navigateTo, [loginRoute?.fullPath]);
   }
 }
