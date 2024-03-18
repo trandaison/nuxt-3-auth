@@ -113,6 +113,10 @@ export default defineNuxtModule<AuthOptions>({
       name: "Authenticator",
       filePath: resolver.resolve("./runtime/components/Authenticator.vue"),
     });
+    addComponent({
+      name: "GoogleSignInButton",
+      filePath: resolver.resolve("./runtime/components/GoogleSignInButton.vue"),
+    });
 
     // Auto register pages
     nuxt.hook("pages:extend", (pages) => {

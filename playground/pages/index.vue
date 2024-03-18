@@ -2,6 +2,9 @@
 const { $auth } = useNuxtApp();
 const { user, loggedIn } = $auth;
 
+const { node: { req } } = useRequestEvent();
+console.log('DEUG params', useRequestURL().searchParams, 'req', req.url);
+
 function fetchUser() {
   $auth.fetchUser()
     .then(() => {

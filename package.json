@@ -50,6 +50,7 @@
     "@nuxt/module-builder": "^0.5.4",
     "@nuxt/schema": "^3.8.2",
     "@nuxt/test-utils": "^3.8.1",
+    "@types/google.accounts": "^0.0.14",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.3",
     "changelogen": "^0.5.5",

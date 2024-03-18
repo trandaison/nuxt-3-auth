@@ -45,6 +45,14 @@ export default defineNuxtConfig({
       home: "/",
     },
     rewriteRedirects: true,
+    socialProviders: {
+      google: {
+        url: "/login/google",
+        method: "POST",
+        clientId:
+          "97014807593-2qdqtf6tojqh5n10fj6868s6g5eh2fv7.apps.googleusercontent.com",
+      },
+    },
   },
   devtools: { enabled: true },
 });

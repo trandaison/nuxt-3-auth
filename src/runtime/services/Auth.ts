@@ -1,10 +1,11 @@
 import type { $Fetch } from 'ofetch';
-import { get } from 'lodash-es';
+import { get, set } from 'lodash-es';
 import { useRuntimeConfig } from "#imports";
 import type {
   AuthConfig,
   AuthEndpointOptions,
   AuthService,
+  SocialLoginProviders,
   User,
 } from "../../types";
 import AuthStorage from './AuthStorage';
@@ -34,12 +35,12 @@ export class Auth implements AuthService {
     return this.storage.user;
   }
 
-  get store(): Store<'auth', State, Getters, Actions> {
+  get store(): Store<"auth", State, Getters, Actions> {
     return this.storage.authStore;
   }
 
   get redirectPath() {
-    let redirectPath = this.config.redirect.home ?? '/';
+    let redirectPath = this.config.redirect.home ?? "/";
 
     if (this.config.rewriteRedirects && this.storage.referer.value) {
       redirectPath = this.storage.referer.value;
@@ -85,7 +86,7 @@ export class Auth implements AuthService {
 
   async login<T = unknown>(
     credentials: Record<string, unknown>,
-    { sessionOnly = false } = {}
+    options: { sessionOnly?: boolean } = {}
   ): Promise<T> {
     try {
       this.loginPromise ??= this.httpService.call<T>(
@@ -94,13 +95,29 @@ export class Auth implements AuthService {
         credentials
       );
       const res = await this.loginPromise;
-      const data = this.getProperty(res, 'login');
-      const token = this.getToken(data, 'token');
-      const refresh_token = this.getToken(data, 'refreshToken');
-      this.storage.setAuth({ token, refresh_token });
-      this.storage.setPersistent(!sessionOnly);
-      await this.fetchUser();
-      this.setReferer(null);
+      const data = await this.handlePostAuthenticate(res, options);
+      return data;
+    } catch (error) {
+      this.logout(false);
+      return Promise.reject(error);
+    } finally {
+      this.loginPromise = null;
+    }
+  }
+
+  async socialLogin<T = unknown>(
+    provider: keyof SocialLoginProviders,
+    credentials: any,
+    options: { sessionOnly?: boolean } = {}
+  ) {
+    try {
+      this.loginPromise ??= this.httpService.call<T>(
+        this.config.socialProviders[provider].method,
+        this.config.socialProviders[provider].url,
+        this.buildPayload(provider, credentials)
+      );
+      const res = await this.loginPromise;
+      const data = await this.handlePostAuthenticate(res, options);
       return data;
     } catch (error) {
       this.logout(false);
@@ -119,7 +136,7 @@ export class Auth implements AuthService {
         { auth: true }
       );
       const res = await this.fetchUserPromise;
-      const data = this.getProperty(res, 'user');
+      const data = this.getProperty(res, "user");
       this.storage.setUser(data);
       return data;
     } catch (error) {
@@ -156,9 +173,9 @@ export class Auth implements AuthService {
         { [this.config.refreshToken.paramName]: refreshToken }
       );
       const res = await this.refreshTokensPromise;
-      const data = this.getProperty(res, 'refresh');
-      const token = this.getToken(data, 'token');
-      const refresh_token = this.getToken(data, 'refreshToken');
+      const data = this.getProperty(res, "refresh");
+      const token = this.getToken(data, "token");
+      const refresh_token = this.getToken(data, "refreshToken");
       this.storage.setAuth({ token, refresh_token });
       return data;
     } catch (error) {
@@ -175,14 +192,42 @@ export class Auth implements AuthService {
 
   protected getProperty(
     response: any,
-    key: Exclude<keyof AuthEndpointOptions, 'baseUrl'>
+    key: Exclude<keyof AuthEndpointOptions, "baseUrl">
   ) {
     const { property } = this.config.endpoints[key];
     return property ? get(response, property) : response;
   }
 
-  protected getToken(data: any, type: 'token' | 'refreshToken') {
+  protected buildPayload(
+    key:
+      | Exclude<keyof AuthEndpointOptions, "baseUrl">
+      | keyof SocialLoginProviders,
+    data: any
+  ) {
+    const { property } =
+      this.config.endpoints[
+        key as Exclude<keyof AuthEndpointOptions, "baseUrl">
+      ] || this.config.socialProviders[key as keyof SocialLoginProviders];
+    return property ? set({}, property, data) : data;
+  }
+
+  protected getToken(data: any, type: "token" | "refreshToken") {
     const { property } = this.config[type];
     return get(data, property);
+  }
+
+  protected async handlePostAuthenticate<T = unknown>(
+    res: T,
+    options: { sessionOnly?: boolean } = {}
+  ) {
+    const { sessionOnly = false } = options;
+    const data = this.getProperty(res, "login");
+    const token = this.getToken(data, "token");
+    const refresh_token = this.getToken(data, "refreshToken");
+    this.storage.setAuth({ token, refresh_token });
+    this.storage.setPersistent(!sessionOnly);
+    await this.fetchUser();
+    this.setReferer(null);
+    return data;
   }
 }

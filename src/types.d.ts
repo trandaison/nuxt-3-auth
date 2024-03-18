@@ -63,6 +63,21 @@ export interface RedirectOptions {
   home: string;
 }
 
+export interface SocialLoginProviders {
+  google: GoogleSinginProviderOptions;
+  facebook: FacebookSinginProviderOptions;
+}
+
+export interface GoogleSinginProviderOptions extends EndpointOption {
+  clientId?: string;
+}
+
+export interface FacebookSinginProviderOptions extends EndpointOption {
+  clientId?: string;
+  redirectUri?: string;
+  scope?: string;
+}
+
 export interface AuthConfig {
   endpoints: AuthEndpointOptions;
   token: TokenOptions;
@@ -75,6 +90,7 @@ export interface AuthConfig {
   debug: boolean;
   plugins: string[];
   useGlobalFetch: boolean;
+  socialProviders: SocialLoginProviders;
 }
 
 export interface AuthOptions {
@@ -89,6 +105,7 @@ export interface AuthOptions {
   debug?: boolean;
   plugins?: string[];
   useGlobalFetch?: boolean;
+  socialProviders?: Partial<SocialLoginProviders>;
 }
 
 export type AuthTokens = { token: string; refresh_token: string };

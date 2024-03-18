@@ -55,6 +55,9 @@ devDependencies:
   '@nuxt/test-utils':
     specifier: ^3.8.1
     version: 3.8.1(rollup@3.29.4)(vitest@0.33.0)(vue@3.3.11)
+  '@types/google.accounts':
+    specifier: ^0.0.14
+    version: 0.0.14
   '@types/lodash-es':
     specifier: ^4.17.12
     version: 4.17.12
@@ -2011,6 +2014,10 @@ packages:
 
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
+
+  /@types/google.accounts@0.0.14:
+    resolution: {integrity: sha512-HqIVkVzpiLWhlajhQQd4rIV7czanFvXblJI2J1fSrL+VKQuQwwZ63m35D/mI0flsqKE6p/hNrAG0Yn4FD6JvNA==}
+    dev: true
 
   /@types/http-proxy@1.17.14:
     resolution: {integrity: sha512-SSrD0c1OQzlFX7pGu1eXxSEjemej64aaNPRhhVYUGqXh0BtldAAx37MG8btcumvpgKyZp1F5Gn3JkktdxiFv6w==}

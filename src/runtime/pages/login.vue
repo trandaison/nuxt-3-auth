@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { definePageMeta } from '#imports';
+import GoogleSignInButton from '../components/GooogleSignInButton.vue';
 
 definePageMeta({
   title: 'title.login',
@@ -14,6 +15,10 @@ definePageMeta({
         title="Login"
         :credentials="{ email: '', password: '', remember_me: true }"
       />
+
+      <div class="social-login">
+        <GoogleSignInButton />
+      </div>
     </div>
   </div>
 </template>
@@ -23,5 +28,13 @@ definePageMeta({
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+}
+
+.social-login {
+  margin-top: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
