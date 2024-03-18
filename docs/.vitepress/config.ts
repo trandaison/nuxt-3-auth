@@ -6,6 +6,7 @@ export default defineConfig({
   description: "A simple authentication module for Nuxt 3",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: "/logo.svg",
     nav: [
       { text: "Guide", link: "/guide/login" },
       { text: "API Reference", link: "/api/options" },
@@ -48,6 +49,10 @@ export default defineConfig({
                 link: "/api/options#rewriteredirects",
               },
               { text: "routes", link: "/api/options#routes" },
+              { text: "debug", link: "/api/options#debug" },
+              { text: "plugins", link: "/api/options#plugins" },
+              { text: "useGlobalFetch", link: "/api/options#useglobalfetch" },
+              { text: "useI18n", link: "/api/options#usei18n" },
             ],
           },
           {
@@ -79,6 +84,7 @@ export default defineConfig({
               { text: "config", link: "/api/$auth#config" },
               { text: "httpService", link: "/api/$auth#httpservice" },
               { text: "storage", link: "/api/$auth#storage" },
+              { text: "$fetch", link: "/api/$auth#fetch" },
               { text: "login", link: "/api/$auth#login" },
               { text: "fetchUser", link: "/api/$auth#fetchuser" },
               { text: "logout", link: "/api/$auth#logout" },
@@ -127,5 +133,5 @@ export default defineConfig({
     },
   },
 
-  outDir: '../../nuxt-3-auth-docs',
+  outDir: "../../nuxt-3-auth-docs",
 });

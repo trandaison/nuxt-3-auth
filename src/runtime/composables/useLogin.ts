@@ -1,9 +1,10 @@
 import type { RawLocation } from '@intlify/vue-router-bridge';
 import { useNuxtApp, navigateTo } from "#app";
 import { ref, computed } from "vue";
+import type { AuthService } from "../../types";
 
 export interface UseLoginOptions {
-  redirectPath?: RawLocation;
+  redirectPath?: RawLocation | ((auth: AuthService) => RawLocation);
   credentials?: any;
   persistent?: boolean;
   invalidErrorMessage?: string;
@@ -11,7 +12,7 @@ export interface UseLoginOptions {
 }
 
 export const useLogin = ({
-  redirectPath: referer = "/",
+  redirectPath = "/",
   credentials: initials,
   persistent: initialPersistent = true,
   invalidErrorMessage = "Invalid login credentials",
@@ -54,16 +55,21 @@ export const useLogin = ({
     }
 
     pending.value = true;
-    const redirectPath = localeRoute($auth.redirectPath || referer || "/");
     resetError();
 
     const payload = params ?? credentials.value;
     const options = { sessionOnly: sessionOnly ?? !persistent.value };
 
+    function getRedirectPath() {
+      return typeof redirectPath === "function"
+        ? redirectPath($auth)
+        : localeRoute($auth.redirectPath || redirectPath || "/");
+    }
+
     return $auth
       .login(payload, options)
       .then(async (res) => {
-        await navigateTo(redirectPath, { replace: true });
+        await navigateTo(getRedirectPath(), { replace: true });
         return res;
       })
       .catch((_error) => {

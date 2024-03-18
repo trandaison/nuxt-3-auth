@@ -35,16 +35,11 @@ $fetch('/users', {
 
 Option `auth` nhận các giá trị sau:
 
-- `auth: true` **(default)**: dùng cho những request yêu cầu phải đăng nhập. Access token (nếu có) sẽ được đính kèm vào request header, nếu request bị lỗi `401 Unauthorized`, module sẽ tự động thực hiện refresh token và thử lại request 1 lần, nếu vẫn bị lỗi `401 Unauthorized` lần thứ 2, module sẽ tự động chuyển hướng đến trang `/login`.
-- `auth: false`: dùng cho những request không yêu cầu phải đăng nhập. **Access token dù tồn tại cũng sẽ không được đính kèm vào request header** khi thực hiện request. Do đó, nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức.
-- `auth: 'optional'`: dùng cho những request có hoặc không yêu cầu phải đăng nhập. Access token (nếu có) sẽ được đính kèm vào request header, tuy nhiên nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức.
-
-
 | Giá trị | Mô tả | Tự động kèm Access token trong headers | Tự động refresh token |
 | --- | --- | --- | --- |
-| `true` | Dùng cho những API requests yêu cầu phải đăng nhập | ✅ | ✅ |
-| `false` | Dùng cho những API requests yêu cầu KHÔNG đăng nhập | ❌ | ❌ |
-| `'optional'` | Dùng cho những API requests có hoặc không yêu cầu phải đăng nhập | ✅ | ❌ |
+| `true` | Dùng cho những API requests yêu cầu **phải đăng nhập**.<br>Access token (nếu có) sẽ được đính kèm vào request header, nếu request bị lỗi `401 Unauthorized`, module sẽ tự động thực hiện refresh token và thử lại request 1 lần, nếu vẫn bị lỗi `401 Unauthorized` lần thứ 2, module sẽ tự động chuyển hướng đến trang `/login`. | <div style="text-align: center">✅</div> | <div style="text-align: center">✅</div> |
+| `false` | Dùng cho những API requests yêu cầu **KHÔNG đăng nhập**.<br>**Access token dù tồn tại cũng sẽ không được đính kèm vào request header** khi thực hiện request. Do đó, nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức. | <div style="text-align: center">❌</div> | <div style="text-align: center">❌</div> |
+| `'optional'` | Dùng cho những API requests **có hoặc không** yêu cầu phải đăng nhập.<br>Access token (nếu có) sẽ được đính kèm vào request header, tuy nhiên nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức. | <div style="text-align: center">✅</div> | <div style="text-align: center">❌</div> |
 
 ## Interception và refresh token
 

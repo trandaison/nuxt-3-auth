@@ -18,7 +18,7 @@ npm install @trandaison/nuxt-3-auth
 
 Khai báo module trong file `nuxt.config.ts`
 
-```js{4}
+```js{3}
 modules: [
   '@pinia/nuxt',
   '@trandaison/nuxt-3-auth',

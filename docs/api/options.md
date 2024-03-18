@@ -13,6 +13,10 @@ Top level của `auth` options trong `nuxt.config.js` như sau:
     middleware: object,
     rewriteRedirects: boolean,
     routes: object,
+    debug: boolean,
+    plugins: string[],
+    useGlobalFetch: boolean,
+    useI18n: boolean,
   }
 }
 ```

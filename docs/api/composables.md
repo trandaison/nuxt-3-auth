@@ -61,7 +61,7 @@ Composable `useLogin` nhận vào một object options với các thuộc tính 
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| `redirectPath` | `RawLocation \| undefined` | `'/'` | Đường dẫn chuyển hướng sau khi login. |
+| `redirectPath` | `(auth: Auth) => RawLocation \| RawLocation \| undefined` | `'/'` | Đường dẫn chuyển hướng sau khi login. Có thể sử dụng callback với tham số đầu vào là object [$auth](/api/$auth) và trả về một `RawLacation` |
 | `credentials` | `any` | `{}` | Object chứa thông tin đăng nhập. |
 | `persistent` | `boolean \| undefined` | `true` | Set `true` để ghi nhớ phiên đăng nhập. |
 | `invalidErrorMessage` | `string \| undefined` | `'Invalid login credentials'` | Message lỗi khi đăng nhập không thành công. |

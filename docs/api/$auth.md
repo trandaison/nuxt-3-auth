@@ -165,6 +165,19 @@ storage: AuthStorage;
 
 Chứa instance của `AuthStorage`.
 
+### `$fetch`
+
+```ts
+$fetch: $Fetch;
+```
+
+Chứa instance của `$fetch` được tạo ra từ [ofetch](https://github.com/unjs/ofetch).
+
+Instance này mặc định được thiết lập sẵn một số cài đặt như:
+- Tự động thêm access token vào header của request.
+- Tự động refresh token khi request trả về lỗi `401 Unauthorized`, sau đó retry lại request.
+- Debug log nếu set [option debug](/api/options.html#debug) là `true`.
+
 ## Methods
 
 ### `login`
