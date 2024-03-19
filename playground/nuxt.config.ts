@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     },
     rewriteRedirects: true,
     useI18n: true,
+    debug: true,
   },
   devtools: { enabled: true },
 });

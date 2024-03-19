@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 import type { RouteLocationNormalized } from 'vue-router';
-import { navigateTo, callWithNuxt, useNuxtApp, useRuntimeConfig } from "#app";
-import { useLocalizeRoute } from "../composables/useLocalizeRoute";
+import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
 import { AuthStatus } from "../utils";
 
 export default async function authMiddleware(to: RouteLocationNormalized) {
@@ -54,22 +53,20 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
       if ($auth.isSessionEnd) $auth.logout(false);
       if (isAuthRequired) {
         if (shouldSetReferer) $auth.setReferer(to.fullPath);
-        return callWithNuxt(nuxtApp, navigateTo, [
-          localeRoute({
-            path: loginPath,
-            query: { status: AuthStatus.Expired },
-          })?.fullPath,
-        ]);
+        return nuxtApp.runWithContext(() =>
+          navigateTo(
+            localeRoute({
+              path: loginPath,
+              query: { status: AuthStatus.Expired },
+            })?.fullPath
+          )
+        );
       }
     }
   }
 
   if (isAuthDefined && !isCurrentRouteLogin) {
     $auth.setReferer(to.fullPath);
-    console.log(
-      "🚀 ~ authMiddleware ~ loginRoute?.fullPath:",
-      loginRoute?.fullPath
-    );
-    return callWithNuxt(nuxtApp, navigateTo, [loginRoute?.fullPath]);
+    return nuxtApp.runWithContext(() => navigateTo(loginRoute?.fullPath));
   }
 }

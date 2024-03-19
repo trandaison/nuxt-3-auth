@@ -104,7 +104,6 @@ export default defineNuxtModule<AuthOptions>({
     // Create `useLocalizeRoute` composable file
     addTemplate({
       filename: "useLocalizeRoute.mjs",
-      dst: resolver.resolve("./runtime/composables/useLocalizeRoute.ts"),
       write: true,
       getContents: () => generateUseLocalizeRouteTemplate({ useI18n }),
     });

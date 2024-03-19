@@ -4,7 +4,7 @@ import { useNuxtApp } from '#imports';
 const { $auth } = useNuxtApp();
 const { loggedIn } = $auth;
 
-const { localeRoute } = useLocalizeRoute();
+const localeRoute = useLocaleRoute();
 </script>
 
 <template>

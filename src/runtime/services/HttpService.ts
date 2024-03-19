@@ -1,7 +1,6 @@
-import type { $Fetch, FetchContext } from 'ofetch';
-import { useRoute, useRouter, callWithNuxt, useNuxtApp } from "#app";
+import type { $Fetch, FetchContext } from "ofetch";
 import { middleTruncate, HTTP_STATUS_UNAUTHORIZED, AuthStatus } from "../utils";
-import type { AuthConfig, AuthService } from '../../types';
+import type { AuthConfig, AuthService } from "../../types";
 
 export default class HttpService {
   public $fetch!: $Fetch;
@@ -148,6 +147,6 @@ export default class HttpService {
       name: this.$configs.routes.login.name,
       query: { status },
     });
-    return callWithNuxt(this.nuxtApp, navigateTo, [loginPath]);
+    return this.nuxtApp.runWithContext(() => navigateTo(loginPath));
   }
 }

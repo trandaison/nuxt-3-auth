@@ -1,6 +1,6 @@
-import type { RawLocation } from '@intlify/vue-router-bridge';
-import { useNuxtApp, navigateTo } from "#app";
+import type { RawLocation } from "@intlify/vue-router-bridge";
 import { ref, computed } from "vue";
+import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
 import type { AuthService } from "../../types";
 
 export interface UseLoginOptions {

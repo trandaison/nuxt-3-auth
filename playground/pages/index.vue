@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 const { $auth } = useNuxtApp();
 const { user, loggedIn } = $auth;
-const { localeRoute } = useLocalizeRoute();
+const localeRoute = useLocaleRoute();
 
 function fetchUser() {
   $auth.fetchUser()

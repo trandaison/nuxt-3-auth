@@ -1,4 +1,3 @@
-import { defineNuxtPlugin, useRuntimeConfig, addRouteMiddleware } from "#app";
 import { Auth } from "./services/Auth";
 import authMiddleware from "./middleware/auth";
 

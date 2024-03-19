@@ -7,16 +7,15 @@ export function generate({ useI18n = false }) {
 
   const localeRouteFunction = useI18n
     ? "const localeRoute = useLocaleRoute();"
-    : "const localeRoute = (rawRoute: RouteLocationRaw) => router.resolve(rawRoute);";
+    : "const localeRoute = (rawRoute) => router.resolve(rawRoute);";
 
   return `${importStatements}
-import type { RouteLocationRaw } from "vue-router";
 
 export function useLocalizeRoute() {
   ${routerDeclaration}
   ${localeRouteFunction}
 
-  const localePath = (rawRoute: RouteLocationRaw) =>
+  const localePath = (rawRoute) =>
     localeRoute(rawRoute)?.fullPath ?? null;
 
   return {

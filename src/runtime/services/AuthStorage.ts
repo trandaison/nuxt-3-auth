@@ -1,26 +1,24 @@
 import dayjs from 'dayjs/esm';
 import { jwtDecode } from 'jwt-decode';
-import { storeToRefs } from 'pinia';
-import type { CookieOptions } from "#app";
-import { useCookie } from '#imports';
-import type { AuthConfig, User, AuthTokens } from '../../types';
-import { useAuthStore } from '../store/auth';
+import { storeToRefs } from "pinia";
+import type { AuthConfig, User, AuthTokens } from "../../types";
+import { useAuthStore } from "../store/auth";
 
 export default class AuthStorage {
   private config;
-  private cookieOptions: CookieOptions = { path: '/' };
+  private cookieOptions: any = { path: "/" };
   public authStore;
   public referer;
   public accessTokenCookie;
   public refreshTokenCookie;
   public persistent;
 
-  static ACCESS_TOKEN_STORAGE_KEY = 'auth.access_token';
-  static REFRESH_TOKEN_STORAGE_KEY = 'auth.refresh_token';
-  static FLAG_PERSISTENT_KEY = 'auth.persistent';
-  static PERSISTENT_VALUE_TRUE = 'yes';
-  static PERSISTENT_VALUE_FALSE = 'no';
-  static REDIRECT_KEY = 'auth.redirect';
+  static ACCESS_TOKEN_STORAGE_KEY = "auth.access_token";
+  static REFRESH_TOKEN_STORAGE_KEY = "auth.refresh_token";
+  static FLAG_PERSISTENT_KEY = "auth.persistent";
+  static PERSISTENT_VALUE_TRUE = "yes";
+  static PERSISTENT_VALUE_FALSE = "no";
+  static REDIRECT_KEY = "auth.redirect";
 
   constructor({ authConfig }: { authConfig: AuthConfig }) {
     this.config = authConfig.cookie;
@@ -137,6 +135,6 @@ export default class AuthStorage {
   private cookieExp() {
     if (this.config.maxAge === null) return undefined;
 
-    return dayjs().add(this.config.maxAge, 'second').toDate();
+    return dayjs().add(this.config.maxAge, "second").toDate();
   }
 }
