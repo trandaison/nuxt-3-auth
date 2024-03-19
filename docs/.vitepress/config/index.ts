@@ -1,9 +1,24 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
+import { vi } from "./vi";
+import { en } from "./en";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Nuxt 3 Auth Module",
   description: "A simple authentication module for Nuxt 3",
+  lang: "en",
+  locales: {
+    root: {
+      label: "English",
+      lang: "en",
+      ...en,
+    },
+    vi: {
+      label: "Tiếng Việt",
+      lang: "vi",
+      ...vi,
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: "/logo.svg",

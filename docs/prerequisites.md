@@ -2,17 +2,18 @@
 
 ## API server
 
-Hiện tại module này hỗ trợ việc đăng nhập thông qua API, do đó bạn cần phải có một API server để xử lý việc đăng nhập đáp ứng các yêu cầu sau:
+Currently, this module supports login via API, so you need to have an API server to handle the login process meeting the following requirements:
 
-- Có API login, response trả về access token và refresh token.
-- Có API refresh token, response trả về access token mới và refresh token mới.
-- Có API logout, xóa access token và refresh token.
-- Có API lấy thông tin user, response trả về thông tin user.
-- Access token và Refresh token là JWT tokens.
+- Have a login API, which responds with an access token and a refresh token.
+- Have a refresh token API, which responds with a new access token and a new refresh token.
+- Have a logout API, which deletes the access token and refresh token.
+- Have a user information retrieval API, which responds with user information.
+- Access token and Refresh token are JWT tokens.
 
 ## Nuxt App
-Có một số yếu tố khác bạn cần cân nhắc khi sử dụng module này trong dự án của mình:
 
-- Tokens được lưu trữ trong cookie.
-- Phiên đăng nhập và thông tin người dùng được lưu trữ trong store Pinia.
-- Module này sử dụng [`ofetch`](https://github.com/unjs/ofetch) cho việc giao tiếp với API (mặc định trên Nuxt 3), do đó các interceptor đang được gắn cho `$fetch` một cách mặc định. Nếu bạn xử dụng axios hoặc một thư viện khác cho việc gọi API, bạn cần phải tự thêm các interceptor tương ứng cho thư viện đó.
+There are several other factors you need to consider when using this module in your project:
+
+- Tokens are stored in cookies.
+- Login sessions and user information are stored in Pinia store.
+- This module uses [`ofetch`](https://github.com/unjs/ofetch) for API communication (by default on Nuxt 3), so interceptors are attached to `$fetch` by default. If you use axios or another library for API calls, you need to manually add corresponding interceptors for that library.

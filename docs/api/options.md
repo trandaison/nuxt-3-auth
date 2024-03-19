@@ -1,6 +1,6 @@
 # Options
 
-Top level của `auth` options trong `nuxt.config.js` như sau:
+The top level of the `auth` options in `nuxt.config.js` looks like this:
 
 ```ts
 {
@@ -23,7 +23,7 @@ Top level của `auth` options trong `nuxt.config.js` như sau:
 
 ## `endpoints`
 
-object chứa thông tin các endpoint cho việc authen.
+An object containing information about the endpoints for authentication.
 
 ### `baseUrl`
 
@@ -31,7 +31,7 @@ object chứa thông tin các endpoint cho việc authen.
 baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
 ```
 
-Base URL của API dùng cho authen.
+The base URL of the API used for authentication.
 
 ### `login`
 
@@ -43,13 +43,13 @@ login: {
 }
 ```
 
-Object chứa thông tin của endpoint api login.
+An object containing information about the API login endpoint.
 
-- `url`: Path của API login.
-- `method`: Phương thức của API login.
-- `property`: Tên thuộc tính chứa data response từ API.
+- `url`: Path of the API login.
+- `method`: Method of the API login.
+- `property`: The name of the property containing the response data from the API.
 
-Ví dụ API login của bạn có object response như sau:
+For example, if your API login has a response object like this:
 
 ```json
 {
@@ -62,7 +62,7 @@ Ví dụ API login của bạn có object response như sau:
 }
 ```
 
-Thì bạn cần set `property` là `data.tokens`.
+Then you need to set `property` to `data.tokens`.
 
 ### `logout`
 
@@ -70,10 +70,10 @@ Thì bạn cần set `property` là `data.tokens`.
 logout: { url: '/logout', method: 'DELETE' }
 ```
 
-Object chứa thông tin của endpoint api logout.
+An object containing information about the API logout endpoint.
 
-- `url`: Path của API logout.
-- `method`: Phương thức của API logout.
+- `url`: Path of the API logout.
+- `method`: Method of the API logout.
 
 ### `refresh`
 
@@ -85,13 +85,13 @@ refresh: {
 }
 ```
 
-Object chứa thông tin của endpoint api refresh token.
+An object containing information about the API refresh token endpoint.
 
-- `url`: Path của API refresh token.
-- `method`: Phương thức của API refresh token.
-- `property`: Tên thuộc tính chứa data response từ API.
+- `url`: Path of the API refresh token.
+- `method`: Method of the API refresh token.
+- `property`: The name of the property containing the response data from the API.
 
-Ví dụ API refresh tokens của bạn có object response như sau:
+For example, if your API refresh tokens have a response object like this:
 
 ```json
 {
@@ -104,7 +104,7 @@ Ví dụ API refresh tokens của bạn có object response như sau:
 }
 ```
 
-Thì bạn cần set `property` là `data.tokens`.
+Then you need to set `property` to `data.tokens`.
 
 ### `user`
 
@@ -116,13 +116,13 @@ user: {
 }
 ```
 
-Object chứa thông tin của endpoint api fetch user info.
+An object containing information about the API fetch user info endpoint.
 
-- `url`: Path của API fetch user info.
-- `method`: Phương thức của API fetch user info.
-- `property`: Tên thuộc tính chứa data response từ API.
+- `url`: Path of the API fetch user info.
+- `method`: Method of the API fetch user info.
+- `property`: The name of the property containing the response data from the API.
 
-Ví dụ API fetch user info của bạn có object response như sau:
+For example, if your API fetch user info has a response object like this:
 
 ```json
 {
@@ -134,7 +134,7 @@ Ví dụ API fetch user info của bạn có object response như sau:
 }
 ```
 
-Thì bạn cần set `property` là `data`.
+Then you need to set `property` to `data`.
 
 ## `token`
 
@@ -146,9 +146,9 @@ token: {
 }
 ```
 
-- `headerName` Tên header đính kèm access token khi gọi API.
-- `type` Tên loại token.
-- `property` Tên key của token dùng để đọc vào object response từ api login. Như trong [ví dụ ở trên](#login) thì `property` có giá trị là `access_token`.
+- `headerName` The name of the header containing the token.
+- `type` The type of token.
+- `property` The name of the token key in the response object from the login and refresh token API. In the [example above](#login), `property` has a value of `token`.
 
 ## `refreshToken`
 
@@ -159,11 +159,11 @@ refreshToken: {
 }
 ```
 
-- `paramName` Tên của param khi gọi API refresh token.
-- `property` Tên key của token dùng để đọc vào object response từ api login & refresh token. Như trong [ví dụ ở trên](#login) thì `property` có giá trị là `refresh_token`.
+- `paramName` The name of the parameter containing the refresh token in the request body.
+- `property` The name of the property containing the refresh token in the response object from the login and refresh token API. In the [example above](#login), `property` has a value of `refresh_token`.
 
 :::tip
-Hiện tại module này yêu cầu API login và refresh token trả về cùng một property chứa refresh token.
+This module requires the login and refresh token API to return the same property containing the refresh token.
 :::
 
 ## `cookie`
@@ -175,10 +175,10 @@ cookie: {
 }
 ```
 
-- `ssl` Set `true` to enable `Secure` flag for cookies (khuyến khích sử dụng nếu có thể).
+- `ssl` Set `true` to enable `Secure` flag for cookies (recommended if possible).
 
 
-- `maxAge` Set giá trị `max-age` cho cookies. Hãy đảm bảo giá trị `maxAge` lớn hơn hoặc bằng thời gian expires của access token và refresh token.
+- `maxAge` The maximum age of the cookie in seconds. The default value is 1 year. Make sure the value is larger than the `maxAge` of both access token and refresh token.
 
 ## `middleware`
 
@@ -188,7 +188,7 @@ middleware: {
 }
 ```
 
-- `global` Set giá trị `false` để tắt global middleware `'auth'`.
+- `global` set to `false` to disable the built-in middleware `auth` that handles authentication between pages.
 
 ## `redirect`
 
@@ -200,9 +200,9 @@ redirect: {
 }
 ```
 
-- `login` Đường dẫn tới trang login. Khi truy cập trang có page meta `auth = true` mà chưa login sẽ bị chuyển hướng đến trang này.
-- `logout` Đường dẫn tới trang sau khi logout.
-- `home` Đường dẫn tới trang sau khi login. [`rewriteRedirects`](#rewriteredirects) sẽ override đường dẫn này. Hoặc trong trường hợp người dùng đã login nhưng đang thực hiện truy cập đến các trang có page meta `auth = 'guest'` (ví dụ trang login) thì sẽ bị chuyển hướng đến đường dẫn này.
+- `login` The path to redirect to when the user is not logged in but trying to access pages that have meta `auth = true`.
+- `logout` The path to redirect to after the user logs out.
+- `home` The path to redirect to after the user logs in. This is also the path to redirect to when the user is logged in but trying to access pages that have meta `auth = 'guest'`. Note that [`rewriteRedirects`](#rewriteredirects) will override this path.
 
 ## `rewriteRedirects`
 
@@ -210,11 +210,11 @@ redirect: {
 rewriteRedirects: boolean = true;
 ```
 
-- Set `true` để bật chức năng chuyển hướng đến trang đã truy cập trước đó trước khi bị chuyển hướng đến trang login thay vì bị chuyển hướng đến `redirect.home`.
+Set `true` to rewrite the `home` redirect path to the path of the page that the user was trying to access before being redirected to the login page.
 
 ## `routes`
 
-Đăng ký các page authentication bao gồm `login` và `logout`. Mặc định các page này nằm ở đường dẫn `/login` và `/logout`. Bạn có thể đăng ký lại path cho các page này ở đây.
+Register authentication pages including `login` and `logout`. By default, these pages are located at `/login` and `/logout`. You can re-register the path for these pages here.
 
 ### `login`
 
@@ -226,9 +226,9 @@ login: {
 }
 ```
 
-- `name` Tên của route.
-- `file` Đường dẫn tới file page component.
-- `path` Đường dẫn trên URL.
+- `name` The name of the route.
+- `file` The path to the page component file.
+- `path` The path on the URL.
 
 ### `logout`
 
@@ -240,9 +240,9 @@ logout: {
 }
 ```
 
-- `name` Tên của route.
-- `file` Đường dẫn tới file page component.
-- `path` Đường dẫn trên URL.
+- `name` The name of the route.
+- `file` The path to the page component file.
+- `path` The path on the URL.
 
 ## `debug`
 
@@ -250,7 +250,7 @@ logout: {
 debug: boolean = false;
 ```
 
-Set `true` để bật chế độ debug, ở chế độ debug, các response từ API sẽ được log ra console.
+Set `true` to enable debug mode. This will log the module's internal state to the console.
 
 ## `plugins`
 
@@ -258,7 +258,7 @@ Set `true` để bật chế độ debug, ở chế độ debug, các response t
 plugins: string[] = [];
 ```
 
-Nếu bạn có plugin nào cần sử dụng `$auth` thì bạn có thể đăng ký ở đây.
+An array of paths to the plugins that you want to use with this module.
 
 ## `useGlobalFetch`
 
@@ -266,7 +266,8 @@ Nếu bạn có plugin nào cần sử dụng `$auth` thì bạn có thể đăn
 useGlobalFetch: boolean = true;
 ```
 
-Mặc định module này sẽ setup các interceptors trên global `$fetch`. Nếu bạn muốn tắt chức năng này thì bạn có thể set `useGlobalFetch` là `false` và sử dụng `$fetch` instance của module thông qua `$auth`.
+By default, this module sets up a global fetch function to use with the `$fetch` composable. Set `useGlobalFetch = false` to disable this feature.
+You still can use the `$fetch` instance of the module through `$auth.$fetch()`.
 
 ```ts
 const $auth = useNuxtApp();
@@ -281,4 +282,4 @@ $fetch('https://example.com/api/users');
 useI18n: boolean = false;
 ```
 
-Set `useI18n = true` nếu bạn có tích hợp module [nuxtjs/i18n](https://i18n.nuxtjs.org/) trong dự án, khi đó các đường dẫn để redirect sẽ được tạo ra qua các composition `useLocalePath` và `useLocaleRoute` của i18n, giúp localize các đường dẫn khi redirect.
+Set `useI18n = true` if you have integrated the [nuxtjs/i18n](https://i18n.nuxtjs.org/) module in your project. When you do this, the paths for redirects will be created through the `useLocalePath` and `useLocaleRoute` compositions of i18n, helping to localize the paths when redirecting.

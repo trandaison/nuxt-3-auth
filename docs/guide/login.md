@@ -1,11 +1,10 @@
 # Login
 
-Mặc định module này cung cấp một buit-in login page ở đường dẫn `/login`.
-Ngoài ra module cũng cung cấp một số cách thức dưới đây để custom một trang login riêng trong trường hợp trang login buit-in không phù hợp với nhu cầu của bạn.
+By default, this module provides a built-in login page at `/login`. In addition, the module also provides a few ways below to customize a custom login page in case the built-in login page does not meet your needs.
 
-## Sử dụng composable
+## Using composable
 
-Auth module cung cấp một composable tên `useLogin` để handle việc login:
+The Auth module provides a composable named `useLogin` to handle login:
 
 ```ts
 const {
@@ -23,7 +22,7 @@ const {
 });
 ```
 
-Tiếp theo bạn cần một form login, ví dụ một form login tối giản như bên dưới:
+Next, you need a login form, for example a minimal login form as below:
 
 ```vue
 <template>
@@ -38,23 +37,23 @@ Tiếp theo bạn cần một form login, ví dụ một form login tối giản
 </template>
 ```
 
-Trong đó:
+Where:
 
-- `credentials` là một `ref`, giá trị khởi tạo được truyền vào qua option `credentials` của composable `useLogin`. Trong trường hợp này thì `credentials` là một object có 2 thuộc tính là `email` và `password`, đều có giá trị rỗng.
-- `login` là hàm handler dùng cho submit login.
-- `pending` Có giá trị true khi đang thực hiện gọi API login.
-- `errorMsg` Chứa message lỗi
-- `persistent` Dùng cho chức năng ghi nhớ đăng nhập, set `true` để ghi nhớ đăng nhập.
+- `credentials` is a `ref`, the initial value is passed through the `credentials` option of the `useLogin` composable. In this case, `credentials` is an object with 2 properties `email` and `password`, both are empty.
+- `login` is a handler function used for login submit.
+- `pending` is `true` when calling the login API.
+- `errorMsg` contains the error message.
+- `persistent` is used for the remember login feature, set `true` to remember login.
 
 :::tip
-Xem thêm về `useLogin` trong phần [API > Composables](/api/composables#uselogin)
+See more about `useLogin` in the [API > Composables](/api/composables#uselogin)
 :::
 
-## Sử dụng component `Authenticator`
+## Using component `Authenticator`
 
-Module này cung cấp một component có tên `Authenticator` được auto import sẵn.
+This module provides a component named `Authenticator` which is auto imported.
 
-Component này cung cấp sẵn một form login đơn giản, bạn chỉ cần truyền vào `credentials` là một object có 2 thuộc tính là `email` và `password` như bên dưới.
+This component provides a simple built-in login form, you just need to pass `credentials` as an object with 2 properties `email` and `password` as below.
 
 ```vue
 // pages/login.vue
@@ -64,16 +63,16 @@ Component này cung cấp sẵn một form login đơn giản, bạn chỉ cần
 </template>
 ```
 
-Giao diện của `Authenticator` như hình bên dưới
+The default login form looks like this:
 
 ![](/images/login_form.png)
 
-Để custom lại giao diện, bạn có thể style lại cho các css class của component. Thậm chí bạn có thể tắt hẳn css của component bằng cách truyền vào prop `css` với giá trị là `false`.
+To disable the default CSS, you can pass `css` prop with `false`, then customize the component's CSS yourself.
 
 ```vue
 <Authenticator :css="false" />
 ```
 
 :::tip
-Xem thêm về `Authenticator` trong phần [API > Pages/Components](/api/components/authenticator)
+See more about `Authenticator` in the [API > Components](/api/components/authenticator)
 :::

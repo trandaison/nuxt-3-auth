@@ -4,18 +4,18 @@
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `title` | `string \| undefined` | `''` | Tiêu đề của form |
+| `title` | `string \| undefined` | `''` | The form title |
 | `labelEmail` | `string \| undefined` | `'Email'` |  |
 | `labelPassword` | `string \| undefined` | `'Password'` |  |
 | `placeholderEmail` | `string \| undefined` | `'Enter your email'` |  |
 | `placeholderPassword` | `string \| undefined` | `'Enter your password'` |  |
-| `invalidErrorMessage` | `string \| undefined` | `'Invalid login credentials'` | Error message dùng để hiển thị trong trường hợp login không thành công. |
-| `otherErrorMessage` | `string \| undefined` | `'An error has occurred'` | Error message dùng để hiển thị trong trường hợp lỗi khác không xác định được. |
-| `feedbackSessionExpiredMessage` | `string \| undefined` | `'Login session has expired.\nPlease login again to continue.'` | Message hiển thị khi login session bị hết hạn. |
-| `feedbackUnauthorizedMessage` | `string \| undefined` | `'Please login to continue.'` | Message hiển thị khi bị chuyển hướng đến trang login. |
+| `invalidErrorMessage` | `string \| undefined` | `'Invalid login credentials'` | The error message when login failure |
+| `otherErrorMessage` | `string \| undefined` | `'An error has occurred'` | Error message when an indeterminate error occurred |
+| `feedbackSessionExpiredMessage` | `string \| undefined` | `'Login session has expired.\nPlease login again to continue.'` | Error message when the login session has expired |
+| `feedbackUnauthorizedMessage` | `string \| undefined` | `'Please login to continue.'` | The feedback message when the user is redirected to the login page. |
 | `btnSubmit` | `string \| undefined` | `'Login'` |  |
-| `credentials` | `any \| undefined` | `() => ({})` | Giá trị khởi tạo của object [`credentials`](/api/$auth#login) chứa thông tin đăng nhập. |
-| `css` | `boolean \| undefined` | `true` | Bật CSS mặc định trên form login hay không. Set `false` để tắt CSS và tự custom CSS riêng. |
+| `credentials` | `any \| undefined` | `() => ({})` | The initial values of [`credentials`](/api/$auth#login) which contains the login credentials |
+| `css` | `boolean \| undefined` | `true` | Set `false` to turn off default css on the login form |
 
 ## Slots
 
@@ -23,7 +23,7 @@
 
 | Name | Props | Description |
 | --- | --- | --- |
-| `title` | `undefined` | Tiêu đề của form |
-| `feedback` | `undefined` | Hiển thị message lỗi |
-| `append` | `{ credentials: any }` | Vị trí cuối form, hữu ích trong trường hợp bạn muốn thêm checkbox "Ghi nhớ đăng nhập" |
-| `submit` | `{ pending: boolean }` | Button submit của form |
+| `title` | `undefined` | The title of the form |
+| `feedback` | `undefined` | Error messsage/Feedback message |
+| `append` | `{ credentials: any }` | The bottom of the form, you might need this slot for the "remember me" feature |
+| `submit` | `{ pending: boolean }` | Submit button |

@@ -1,7 +1,6 @@
 # Logout
 
-Mặc định module này cung cấp một trang logout buit-in ở đường dẫn `/logout`.
-Do đó việc sử dụng cũng hết sức đơn giản, chỉ cần sử dụng component `NuxtLink` để tạo một link đến trang logout như sau:
+By default, this module provides a built-in logout page at `/logout`. Therefore, using it is also very simple, just use the `NuxtLink` component to create a link to the logout page as follows:
 
 ```vue
 <template>
@@ -9,7 +8,7 @@ Do đó việc sử dụng cũng hết sức đơn giản, chỉ cần sử dụ
 </template>
 ```
 
-Ngoài ra bạn cũng có thể handle việc logout thông qua composable `useLogout` như sau:
+In addition, you can also handle logout through the `useLogout` composable as follows:
 
 ```vue
 <script lang="ts" setup>
@@ -22,5 +21,5 @@ const { doLogout } = useLogout();
 ```
 
 :::tip
-Xem thêm về `useLogout` trong phần [API > Composables](/api/composables#uselogout)
+See more about `useLogout` in the [API > Composables](/api/composables#uselogout)
 :::

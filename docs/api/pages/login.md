@@ -2,9 +2,9 @@
 
 ## `status` query
 
-Khi bị chuyển hướng tới trang login, module sẽ tự động thêm query `status` vào URL để xác định trạng thái hiện tại của trang login. Có 2 giá trị có thể của `status`:
+When redirected to the login page, the module will automatically add the `status` query to the URL to determine the current state of the login page. There are 2 possible values of `status`:
 
-- `"unauthorized"`: trạng thái bị chuyển hướng đến trang login do 1 trong 2 nguyên nhân sau:
-  - Chưa đăng nhập.
-  - Cả access token và refresh token đều đã hết hạn.
-- `"session-expired"`: trạng thái bị chuyển hướng đến trang login do access token đã hết hạn, mặc dù refresh token vẫn còn hạn sử dụng nhưng có lỗi xảy ra khi thực hiện refresh token.
+- `"unauthorized"`: the state of being redirected to the login page due to 1 of 2 reasons:
+  - Not logged in.
+  - Both access token and refresh token have expired.
+- `"session-expired"`: the state of being redirected to the login page due to the access token having expired, even though the refresh token is still valid, but an error occurred when refreshing the token.

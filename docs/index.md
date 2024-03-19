@@ -19,11 +19,23 @@ hero:
 
 features:
   - title: Simple
-    details: Đơn giản, nhỏ gọn nhưng đầy đủ những tính năng cơ bản của một module authentication.
-  - title: Tương thích các official modules
-    details: Được thiết kế để làm việc với các module phổ biến của Nuxt như i18n, ofetch, pinia.
+    icon:
+      src: /images/f1.svg
+      alt: Simple
+    details: Simple, lightweight yet fully featured with essential authentication module functionalities.
+  - title: Compatible with official modules
+    icon:
+      src: /images/f2.svg
+      alt: Compatible
+    details: Designed to work seamlessly with popular Nuxt modules like i18n, ofetch, pinia.
   - title: Ready to use
-    details: Có sẵn các trang đăng nhập, đăng xuất, form đăng nhập, store quản lý session, và các composition apis dễ dàng tùy chỉnh.
+    icon:
+      src: /images/f3.svg
+      alt: Ready to use
+    details: Comes with ready-to-use login pages, logout functionality, login form, session management store, and easily customizable composition APIs.
   - title: Support Refresh Token
-    details: Hỗ trợ refresh token, tự động refresh access token khi hết hạn. Hỗ trợ chức năng ghi nhớ đăng nhập.
+    icon:
+      src: /images/f4.svg
+      alt: Features
+    details: Supports refresh token, automatically refreshes access token upon expiration. Supports remember login feature.
 ---

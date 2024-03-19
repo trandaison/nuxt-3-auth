@@ -3,6 +3,7 @@
   "version": "0.0.7",
   "description": "A simple authentication module for Nuxt 3",
   "repository": "https://github.com/trandaison/nuxt-3-auth",
+  "homepage": "https://nuxt-3-auth.github.io",
   "private": false,
   "license": "MIT",
   "type": "module",

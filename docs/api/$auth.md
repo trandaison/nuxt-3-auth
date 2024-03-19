@@ -1,8 +1,8 @@
 # `$auth` instance
 
-Module này đã inject sẵn một `$auth` instance vào nuxt app, nghĩa là bạn có thể access vào instance này ở bất cứ đâu thông qua một trong số các cách dưới đây (tùy vào ngữ cảnh sử dụng):
+This module has injected a `$auth` instance into the Nuxt app, meaning you can access this instance anywhere through one of the following methods (depending on the context of use):
 
-- Với setup script, middleware, pluggin,...
+- With setup script, middleware, plugin,...
 
 ```ts
 const { $auth } = useNuxtApp();
@@ -10,7 +10,7 @@ const { $auth } = useNuxtApp();
 const auth = useAuth();
 ```
 
-- Hoặc với Options API
+- Or with Options API
 
 ```ts
 this.$auth;
@@ -19,9 +19,9 @@ context.$auth;
 ```
 
 :::danger
-`$auth` instance không phải là một `Reactive` object, nghĩa là bạn không nên truy xuất các thuộc tính bên trong `$auth` instance (ví dụ `$auth.user`, `$auth.loggedIn`) một cách trực tiếp trong `template` của component, nếu không khi giá trị của các thuộc tính này thay đổi thì `template` sẽ không được re-render.
+The `$auth` instance is not a `Reactive` object, meaning you should not directly access properties within the `$auth` instance (e.g., `$auth`.user, `$auth.loggedIn`) in the `template` of a component, as the `template` will not be re-rendered when the values of these properties change.
 
-Ví dụ component của bạn cần hiển thị tên của `user` đang login, bạn nên destruct `user` ra khỏi `$auth` instance hoặc tạo một computed và sử dụng `user` như một `Reactive` object.
+For example, if your component needs to display the name of the logged-in user, you should destructure `user` from the `$auth` instance or create a computed property and use the `user` as a Reactive object.
 
 ✅ Do
 
@@ -57,7 +57,7 @@ const { $auth } = useNuxtApp();
 user: Ref<User> | null;
 ```
 
-object chứa thông tin user đang đăng nhập trong pinia store. Nếu chưa đăng nhập giá trị trả về là `null`.
+An object containing information about the logged-in user in the pinia store. Returns `null` if not logged in.
 
 ```ts
 const { $auth } = useNuxtApp();
@@ -70,7 +70,7 @@ const { user } = $auth;
 store: Store;
 ```
 
-object pinia store của auth module.
+The pinia store object of the auth module.
 
 ### `redirectPath`
 
@@ -78,7 +78,7 @@ object pinia store của auth module.
 redirectPath: string | null;
 ```
 
-Đường dẫn redirect sau khi đăng nhập thành công.
+The redirect path after successful login.
 
 ### `accessToken`
 
@@ -86,7 +86,7 @@ redirectPath: string | null;
 accessToken: string | null | undefined;
 ```
 
-Chứa giá trị của access token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
+Contains the value of the access token, returns `null` if not logged in or the token has expired.
 
 ### `refreshToken`
 
@@ -94,7 +94,7 @@ Chứa giá trị của access token, trả về `null` nếu chưa đăng nhậ
 refreshToken: string | null | undefined;
 ```
 
-Chứa giá trị của refesh token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
+Contains the value of the refresh token, returns `null` if not logged in or the token has expired.
 
 ### `loggedIn`
 
@@ -102,7 +102,7 @@ Chứa giá trị của refesh token, trả về `null` nếu chưa đăng nhậ
 loggedIn: Ref<boolean>;
 ```
 
-Là một `Ref` có giá trị `true` khi đã log in, ngược lại có giá trị `false`.
+A Ref with a value of `true` when logged in, otherwise `false`.
 
 ```ts
 const { $auth } = useNuxtApp();
@@ -115,7 +115,7 @@ const { loggedIn } = $auth;
 hasTokens: boolean;
 ```
 
-Có giá trị `true` khi có token trong cookie và token còn hạn sử dụng (bất kể access token hoặc refresh token).
+Has a value of `true` when there are tokens in the cookie and the tokens are still valid (either access token or refresh token).
 
 ### `isSessionExpired`
 
@@ -123,7 +123,7 @@ Có giá trị `true` khi có token trong cookie và token còn hạn sử dụn
 isSessionExpired: boolean;
 ```
 
-Có giá trị `true` khi user đã log in nhưng **access token đã hết hạn** nhưng **refresh token vẫn còn hạn sử dụng**.
+Has a value of `true` when the user is **logged in but the access token has expired** while **the refresh token is still valid**.
 
 ### `isSessionEnd`
 
@@ -131,7 +131,7 @@ Có giá trị `true` khi user đã log in nhưng **access token đã hết hạ
 isSessionEnd: boolean;
 ```
 
-Có giá trị `true` khi cả access token và refresh token đều đã hết hạn.
+Has a value of `true` when both the access token and refresh token have expired.
 
 ### `isPersistent`
 
@@ -139,7 +139,7 @@ Có giá trị `true` khi cả access token và refresh token đều đã hết 
 isPersistent: boolean;
 ```
 
-Có giá trị `true` khi phiên đăng nhập có sử dụng "Ghi nhớ đăng nhập".
+Has a value of `true` when the login session is persistent (Remember Me feature).
 
 ### `config`
 
@@ -147,7 +147,7 @@ Có giá trị `true` khi phiên đăng nhập có sử dụng "Ghi nhớ đăng
 config: AuthConfig;
 ```
 
-Chứa object config của `auth` được cài đặt trong `nuxt.config.ts`.
+Contains the config object of the `auth` set in `nuxt.config.ts`.
 
 ### `httpService`
 
@@ -155,7 +155,7 @@ Chứa object config của `auth` được cài đặt trong `nuxt.config.ts`.
 httpService: HttpService;
 ```
 
-Chứa instance của `HttpService`.
+Contains an instance of `HttpService`.
 
 ### `storage`
 
@@ -163,7 +163,7 @@ Chứa instance của `HttpService`.
 storage: AuthStorage;
 ```
 
-Chứa instance của `AuthStorage`.
+Contains an instance of `AuthStorage`.
 
 ### `$fetch`
 
@@ -171,12 +171,12 @@ Chứa instance của `AuthStorage`.
 $fetch: $Fetch;
 ```
 
-Chứa instance của `$fetch` được tạo ra từ [ofetch](https://github.com/unjs/ofetch).
+Contains an instance of `$fetch` created from [ofetch](https://github.com/unjs/ofetch).
 
-Instance này mặc định được thiết lập sẵn một số cài đặt như:
-- Tự động thêm access token vào header của request.
-- Tự động refresh token khi request trả về lỗi `401 Unauthorized`, sau đó retry lại request.
-- Debug log nếu set [option debug](/api/options.html#debug) là `true`.
+By default, this instance has the following features:
+- Automatically attach the access token to the request header.
+- Automatically refresh the access token if it has expired (when the request returns a 401 status code), then retry the request.
+- Debug log if the [debug option](/api/options.html#debug) is set to `true`.
 
 ## Methods
 
@@ -189,7 +189,7 @@ function login<T = unknown>(
 ): Promise<T>;
 ```
 
-Hàm `login` hiện login với thông tin login trong `credentials`.
+This function is used to log in a user. The `credentials` object should contain the user's email and password.
 
 ```ts
 const { $auth } = useNuxtApp();
@@ -202,7 +202,7 @@ function onSubmit() {
 }
 ```
 
-Option `sessionOnly = true` dùng trong trường hợp không ghi nhớ session đăng nhập tức là người dùng sẽ phải login lại sau khi tắt trình duyệt hoặc khi refresh token bị hết hạn.
+The `sessionOnly` option is used to determine whether the user's session should be remembered. If `sessionOnly` is set to `true`, the user will have to log in again after closing the browser or when the refresh token has expired.
 
 ### `fetchUser`
 
@@ -210,7 +210,7 @@ Option `sessionOnly = true` dùng trong trường hợp không ghi nhớ session
 function fetchUser<T = User>(): Promise<T>;
 ```
 
-Thực hiện fetch lại data của user đang được login và cập nhật vào Store. Nếu không thành công sẽ throw ra lỗi.
+This function is used to fetch the user's information. If there is an error, it will throw the error, don't forget to catch it.
 
 ```ts
 const { $auth } = useNuxtApp();
@@ -231,7 +231,7 @@ const { $auth } = useNuxtApp();
 $auth.logout();
 ```
 
-Thực hiện logout. Truyền vào `callApi = false` để logout phía client-side only.
+This function is used to log out. Pass `callApi = false` to log out client-side only.
 
 ### `refreshTokens`
 
@@ -239,7 +239,7 @@ Thực hiện logout. Truyền vào `callApi = false` để logout phía client-
 function refreshTokens<T = unknown>(): Promise<T>;
 ```
 
-Thực hiện refresh access token. Nếu không thành công sẽ throw ra lỗi.
+This function is used to refresh the access token and refresh token. If there is an error, it will throw the error, don't forget to catch it.
 
 ```ts
 const { $auth } = useNuxtApp();

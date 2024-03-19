@@ -1,6 +1,6 @@
 # Installation
 
-Install the module:
+Cài đặt module:
 
 ::: code-group
 
@@ -16,7 +16,7 @@ npm install @trandaison/nuxt-3-auth
 
 :::
 
-Declare the module in the `nuxt.config.ts` file:
+Khai báo module trong file `nuxt.config.ts`
 
 ```js{3}
 modules: [
@@ -27,18 +27,18 @@ modules: [
 ```
 
 :::tip
-Since the `@trandaison/nuxt-3-auth` module utilizes Pinia, the `@pinia/nuxt` module needs to be declared before `@trandaison/nuxt-3-auth`.
+Vì module `@trandaison/nuxt-3-auth` có sử dụng Pinia nên module `@pinia/nuxt` cần phải khai báo trước `@trandaison/nuxt-3-auth`.
 :::
 
 :::tip
-The `@nuxtjs/i18n` module (if present) should be declared after the `@trandaison/nuxt-3-auth` module to ensure that the built-in pages (login, logout) work properly with different localizations.
+Module `@nuxtjs/i18n` (nếu có) nên khai báo sau module `@trandaison/nuxt-3-auth` sẽ đảm bảo các built-in pages (login, logout) họat động đầy đủ với các localize khác nhau.
 
-See more about integrating with the i18n module at [API > Options > useI18n](/api/options#useI18n)
+Xem thêm về cách tích hợp với module i18n tại [API > Options > useI18n](/vi/api/options#usei18n)
 :::
 
 # Configurations
 
-Add the `auth` option to `nuxt.config.ts`:
+Thêm option `auth` vào `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
@@ -63,5 +63,5 @@ export default defineNuxtConfig({
 ```
 
 :::tip
-See the full list of options at [API > Options](/api/options)
+Xem đầy đủ các options tại [API > Options](#)
 :::

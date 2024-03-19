@@ -6,7 +6,7 @@
 const auth = useAuth();
 ```
 
-`useAuth()` Trả về một [$auth](/api/$auth) instance. Bạn có thể truy cập vào các property và method của `$auth` thông qua composable này, ví dụ như `user`, `loggedIn`.
+`useAuth()` returns an [$auth](/api/$auth) instance. You can use it to access the properties and methods of the `$auth` instance such as `user`, `loggedIn`, etc.
 
 ```ts
 const { user, loggedIn } = auth;
@@ -57,27 +57,27 @@ const {
 
 ### `UseLoginOptions`
 
-Composable `useLogin` nhận vào một object options với các thuộc tính như sau:
+Composable `useLogin` takes an options object with the following properties:
 
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| `redirectPath` | `(auth: Auth) => RawLocation \| RawLocation \| undefined` | `'/'` | Đường dẫn chuyển hướng sau khi login. Có thể sử dụng callback với tham số đầu vào là object [$auth](/api/$auth) và trả về một `RawLacation` |
-| `credentials` | `any` | `{}` | Object chứa thông tin đăng nhập. |
-| `persistent` | `boolean \| undefined` | `true` | Set `true` để ghi nhớ phiên đăng nhập. |
-| `invalidErrorMessage` | `string \| undefined` | `'Invalid login credentials'` | Message lỗi khi đăng nhập không thành công. |
-| `otherErrorMessage` | `string \| undefined` | `'An error has occurred'` | Message lỗi khi đăng nhập gặp lỗi không xác định. |
+| `redirectPath` | `(auth: Auth) => RawLocation \| RawLocation \| undefined` | `'/'` | The path to redirect to after login. You can use a callback with the input parameter as the [$auth object](/api/$auth) and return a `RawLocation`. |
+| `credentials` | `any` | `{}` | An object containing login information. |
+| `persistent` | `boolean \| undefined` | `true` | Set `true` to remember the login session. |
+| `invalidErrorMessage` | `string \| undefined` | `'Invalid login credentials'` | The error message when login fails due to invalid credentials. |
+| `otherErrorMessage` | `string \| undefined` | `'An error has occurred'` | The error message when login encounters an unspecified error. |
 
 ### Return value
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `credentials` | `Ref<any>` | Chứa thông tin đăng nhập. |
-| `persistent` | `Ref<boolean>` | Dùng cho checkbox "Ghi nhớ đăng nhập". |
-| `errorMsg` | `ComputedRef<string \| null>` | Message lỗi. |
-| `error` | `Ref<any>` | Object lỗi chứa lỗi khi đăng nhập thất bại |
-| `pending` | `Ref<boolean>` | Có giá trị `true` khi đang thực hiện đăng nhập. |
-| `resetError` | `() => void` | Dùng để clear giá trị của ref `error`. |
-| `login` | `() => Promise<any>` | Hàm handle login, trả về giá trị của hàm [login](/api/$auth#login), nhận 2 tham số đầu vào như sau: <br /> - `params?: Record<string, unknown>`: thông tin đăng nhập, nếu không truyền vào sẽ sử dụng thông tin trong ref `credentials`. <br /> - `{ sessionOnly }: { sessionOnly?: boolean } = {}`: Set `sessionOnly = true` nếu không "remember me". |
+| `credentials` | `Ref<any>` | Contains login information. |
+| `persistent` | `Ref<boolean>` | Used for the "Remember Me" checkbox. |
+| `errorMsg` | `ComputedRef<string \| null>` | Error message. |
+| `error` | `Ref<any>` | Error object containing errors when login fails. |
+| `pending` | `Ref<boolean>` | Has a value of `true` when logging in is in progress. |
+| `resetError` | `() => void` | Used to clear the value of the `error` ref. |
+| `login` | `() => Promise<any>` | Login handler function, returns the value of the [login function](/api/$auth#login), takes two parameters as follows: <br /> - `params?: Record<string, unknown>`: login information, if not passed, it will use the information in the `credentials` ref. <br /> - `{ sessionOnly }: { sessionOnly?: boolean } = {}`: Set `sessionOnly = true` if not "remember me". |
 
 ### Interfaces
 
@@ -120,12 +120,12 @@ const useLogout = (redirectPath: RawLocation = '/') => {
 
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| `redirectPath` | `RawLocation` | `'/'` | Đường dẫn chuyển trang sau khi logout. |
+| `redirectPath` | `RawLocation` | `'/'` | The redirect path after logout |
 
 ### Return values
 
 | Property | Type | Description |
 | --- | --- | --- |
-| `errorMsg` | `ComputedRef<string \| null>` | Message lỗi. |
-| `pending` | `Ref<boolean>` | Có giá trị `true` khi đang thực hiện logout. |
-| `doLogout` | `() => void` | Hàm handle logout. |
+| `errorMsg` | `ComputedRef<string \| null>` | The error message |
+| `pending` | `Ref<boolean>` | Value is `true` when performing the logout request |
+| `doLogout` | `() => void` | The execution function |

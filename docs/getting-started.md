@@ -1,7 +1,7 @@
 # Nuxt 3 Authentication Module
 
-Module này được thiết kế dựa trên ý tưởng của [nuxt/auth-module](https://auth.nuxtjs.org/) nhưng hỗ trợ cho Nuxt 3.
+This module is designed based on the concept of [nuxt/auth-module](https://auth.nuxtjs.org/) but with support for Nuxt 3.
 
-Từ phiên bản 3 trở lên, mặc định Nuxt sử dụng [`ofetch`](https://github.com/unjs/ofetch) cho việc giao tiếp với API thông qua `$fetch` và `useFetch`. Auth module cũng không ngoại lệ, sử dụng `$fetch` cho việc gọi API và [`pinia`](https://pinia.vuejs.org/) làm store quản lý session đăng nhập.
+Starting from version 3 and above, Nuxt by default utilizes [`ofetch`](https://github.com/unjs/ofetch) for API communication via `$fetch` and `useFetch`. The Auth module follows suit, employing `$fetch` for API calls and [`pinia`](https://pinia.vuejs.org/) for managing login sessions.
 
-Ngoài ra module cũng cung cấp sẵn một middleware `auth` để kiểm tra trạng thái đăng nhập của người dùng, một component `Authentication` là form đăng nhập. Trang `/login` và `/logout` mặc định cũng được cung cấp sẵn, cùng nhiều composition api khác hỗ trợ cho việc đăng nhập, đăng xuất, lấy thông tin người dùng, refresh token, ...
+Additionally, the module provides a built-in `auth` middleware to check the user's login status, an `Authentication` component serving as the login form. Default routes `/login` and `/logout` are also provided along with various composition APIs to support functionalities such as login, logout, user information retrieval, token refreshing, and more.

@@ -1,8 +1,8 @@
 # Usage
 
-## Authen trên pages
+## Authentication on pages
 
-Để yêu cầu đăng nhập cho một trang bất kỳ, bạn chỉ cần khai báo page meta `auth` cho trang đó bằng cách sử dụng hàm `definePageMeta`:
+To require authentication for any page, you simply need to declare the `auth` page meta for that page using the `definePageMeta` function:
 
 ```vue{4}
 <script setup>
@@ -12,19 +12,19 @@
 </script>
 ```
 
-Như vậy, khi truy cập vào trang `/admin`, nếu chưa đăng nhập, bạn sẽ được chuyển hướng đến trang `/login`. Sau khi đăng nhập thành công, bạn sẽ được chuyển hướng lại trang `/admin`.
+So, when accessing the `/admin` page, if not logged in, you will be redirected to the `/login` page. After successfully logging in, you will be redirected back to the `/admin` page.
 
 :::tip
-Xem thêm về meta `auth` tại [Middleware](/guide/middleware.html#middleware).
+See more about the `auth` meta at [Middleware](/guide/middleware.html#middleware).
 
-Xem thêm thông tin hướng dẫn về login tại mục [Guide > Login](/guide/login) và logout tại mục [Guide > Logout](/guide/logout).
+Find more guidance on login in the [Guide > Login](/guide/login) section and logout in the [Guide > Logout](/guide/logout) section.
 :::
 
-## Authen trên API calls
+## Authentication on API calls
 
-Một khi đã đăng nhập thành công, module sẽ tự động gắn access token vào header của mọi request API (nếu token tồn tại), bạn không cần phải thực hiện thêm bất cứ thao tác nào.
+Once logged in successfully, the module will automatically attach the access token to the header of every API request (if the token exists), so you don't need to perform any additional actions.
 
-Trong một số trường hợp, bạn có thể sẽ muốn gọi API mà không đính kèm access token vào header, trong trường hợp này bạn có thể truyền vào option `auth: false` khi thực hiện gọi API như sau:
+In some cases, you may want to call an API without attaching the access token to the header. In this case, you can pass the `auth: false` option when making the API call as follows:
 
 ```ts{3}
 $fetch('/users', {
@@ -33,19 +33,19 @@ $fetch('/users', {
 })
 ```
 
-Option `auth` nhận các giá trị sau:
+The `auth` option accepts the following values:
 
-| Giá trị | Mô tả | Tự động kèm Access token trong headers | Tự động refresh token |
+| Value | Description | Automatically attach Access token in headers | Automatically refresh token |
 | --- | --- | --- | --- |
-| `true` | Dùng cho những API requests yêu cầu **phải đăng nhập**.<br>Access token (nếu có) sẽ được đính kèm vào request header, nếu request bị lỗi `401 Unauthorized`, module sẽ tự động thực hiện refresh token và thử lại request 1 lần, nếu vẫn bị lỗi `401 Unauthorized` lần thứ 2, module sẽ tự động chuyển hướng đến trang `/login`. | <div style="text-align: center">✅</div> | <div style="text-align: center">✅</div> |
-| `false` | Dùng cho những API requests yêu cầu **KHÔNG đăng nhập**.<br>**Access token dù tồn tại cũng sẽ không được đính kèm vào request header** khi thực hiện request. Do đó, nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức. | <div style="text-align: center">❌</div> | <div style="text-align: center">❌</div> |
-| `'optional'` | Dùng cho những API requests **có hoặc không** yêu cầu phải đăng nhập.<br>Access token (nếu có) sẽ được đính kèm vào request header, tuy nhiên nếu request bị lỗi `401 Unauthorized`, module sẽ **không thực hiện refresh token** mà chuyển hướng đến trang `/login` ngay lập tức. | <div style="text-align: center">✅</div> | <div style="text-align: center">❌</div> |
+| `true` | Used for API requests requiring **mandatory authentication**.<br>The access token (if any) will be attached to the request header. If the request returns a `401 Unauthorized` error, the module will automatically refresh the token and retry the request once. If still unauthorized after the second attempt, the module will automatically redirect to the `/login` page. | <div style="text-align: center">✅</div> | <div style="text-align: center">✅</div> |
+| `false` | Used for API requests **not requiring authentication**.<br>**Even if an access token exists, it will not be attached to the request header**. Therefore, if the request returns a `401 Unauthorized` error, the module **will not refresh the token** but immediately redirect to the `/login` page. | <div style="text-align: center">❌</div> | <div style="text-align: center">❌</div> |
+| `'optional'` | Used for API requests **with or without** authentication requirements.<br>The access token (if any) will be attached to the request header. However, if the request returns a `401 Unauthorized` error, the module **will not refresh the token** but immediately redirect to the `/login` page. | <div style="text-align: center">✅</div> | <div style="text-align: center">❌</div> |
 
-## Interception và refresh token
+## Interception and refresh token
 
-Mặc định, module sẽ tự động thực hiện refresh token khi gọi API và nhận được response lỗi `401 Unauthorized`.
+By default, the module will automatically refresh the token when making API calls and receiving a `401 Unauthorized` response.
 
-Trong trường hợp bạn muốn chủ động refresh access token, bạn có thể gọi hàm `refreshTokens` của `$auth` như sau:
+In case you want to actively refresh the access token, you can call the `refreshTokens` function of `$auth` as follows:
 
 ```ts
 const { $auth } = useNuxtApp();
@@ -56,4 +56,4 @@ try {
 }
 ```
 
-Lưu ý rằng trong trường hợp refresh token không thành công, hàm `refreshTokens` sẽ gọi `logout(false)` và trả về một object lỗi, bạn cần phải catch lỗi này.
+Note that in case the refresh token fails, the `refreshTokens` function will call `logout(false)` and return an error object, which you need to catch.
