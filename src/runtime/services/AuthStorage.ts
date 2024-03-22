@@ -1,5 +1,6 @@
 import dayjs from 'dayjs/esm';
 import { jwtDecode } from 'jwt-decode';
+import { useCookie } from "#imports";
 import { storeToRefs } from "pinia";
 import type { AuthConfig, User, AuthTokens } from "../../types";
 import { useAuthStore } from "../store/auth";
