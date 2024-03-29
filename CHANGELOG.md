@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.0.8
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.7...v0.0.8)
+
+### 🩹 Fixes
+
+- Add missing imports (and use stub mode to prevent in future) ([4142fe1](https://github.com/trandaison/nuxt-3-auth/commit/4142fe1))
+- Fix error  is not defined ([6fc7dcd](https://github.com/trandaison/nuxt-3-auth/commit/6fc7dcd))
+
+### 🏡 Chore
+
+- Update build.config.ts ([c6ff88b](https://github.com/trandaison/nuxt-3-auth/commit/c6ff88b))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+- Daniel Roe ([@danielroe](http://github.com/danielroe))
+
 ## v0.0.7
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.6...v0.0.7)
