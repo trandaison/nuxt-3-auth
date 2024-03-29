@@ -44,6 +44,7 @@ export default defineConfig({
           { text: "Logout", link: "/guide/logout" },
           { text: "Middleware", link: "/guide/middleware" },
           { text: "Typescript", link: "/guide/typescript" },
+          { text: "FAQ", link: "/guide/faq" },
         ],
       },
       {

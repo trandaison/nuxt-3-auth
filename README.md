@@ -14,9 +14,9 @@ A simple authentication module for Nuxt 3
 ## Features
 
 <!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- 🤝 &nbsp;Compatible with pinia, nuxtjs/i18n, ofetch.
+- 🚀 &nbsp;Built in pages and compositions.
+- ⚙️ &nbsp;Support refresh tokens
 
 ## Quick Setup
 

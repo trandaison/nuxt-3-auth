@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import type { RouteLocationNormalized } from 'vue-router';
-import { navigateTo, useNuxtApp } from "#imports";
+import { navigateTo, useNuxtApp, useRuntimeConfig } from "#imports";
 import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
 import { AuthStatus } from "../utils";
 

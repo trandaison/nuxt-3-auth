@@ -33,7 +33,9 @@ export const en = defineConfig({
           { text: "Login", link: "/guide/login" },
           { text: "Logout", link: "/guide/logout" },
           { text: "Middleware", link: "/guide/middleware" },
+          { text: "HTTP Request", link: "/guide/http-request" },
           { text: "Typescript", link: "/guide/typescript" },
+          { text: "FAQ", link: "/guide/faq" },
         ],
       },
       {

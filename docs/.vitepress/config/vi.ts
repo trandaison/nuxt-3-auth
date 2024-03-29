@@ -33,7 +33,9 @@ export const vi = defineConfig({
           { text: "Login", link: "/vi/guide/login" },
           { text: "Logout", link: "/vi/guide/logout" },
           { text: "Middleware", link: "/vi/guide/middleware" },
+          { text: "HTTP Request", link: "/vi/guide/http-request" },
           { text: "Typescript", link: "/vi/guide/typescript" },
+          { text: "Câu hỏi thường gặp", link: "/vi/guide/faq" },
         ],
       },
       {
