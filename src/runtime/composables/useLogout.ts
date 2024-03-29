@@ -1,5 +1,6 @@
 import type { RawLocation } from '@intlify/vue-router-bridge';
 import { ref } from 'vue';
+import { navigateTo, useNuxtApp, useRuntimeConfig } from "#imports";
 import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
 
 export const useLogout = (redirectPath: RawLocation = "/") => {

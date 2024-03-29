@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Bắt đầu
-      link: /vi/getting-started
+      link: /vi/installation
     - theme: alt
       text: API Reference
       link: /vi/api/options

@@ -48,11 +48,14 @@ export default class HttpService {
         }
 
         try {
-          await this.$auth.refreshTokens();
-          options.headers = (options.headers || {}) as Record<string, string>;
-          options.headers[headerName] = `${type} ${this.$auth.accessToken}`;
+          const { token } = await this.$auth.refreshTokens();
+          // Stringify and parse to remove the callback functions (e.g. onResponse, onRequest, etc.)
+          const opts = JSON.parse(JSON.stringify(options));
+          opts.headers = opts.headers || {};
+          opts.headers[headerName] = `${type} ${token}`;
           await this.$fetch(request, {
-            onRequest: this.onRequest.bind(this),
+            ...opts,
+            auth: false,
             onResponse(ctx) {
               Object.assign(context, ctx);
             },
