@@ -20,7 +20,7 @@ await auth.$fetch('/api/me', {
 
 Tùy chọn `auth` cho phép các giá trị sau:
 
-| Giá trị | Mô tả | Đính kèm Access Token | Làm mới access token | Thử lại request |
+| Giá trị | Đính kèm Access Token | Làm mới access token | Thử lại request | Mô tả |
 | --- | --- | --- | --- | --- |
 | **`'auto'`** | ✅ | ❌ | ❌ | Thực hiện request xác thực nếu có thể nhưng không làm mới access token khi token hết hạn |
 | `true` | ✅ | ✅ | ✅ | Thực hiện request xác thực và làm mới token sau đó thử lại nếu trạng thái phản hồi là `401` |
@@ -29,5 +29,5 @@ Tùy chọn `auth` cho phép các giá trị sau:
 ::: tip
 Mặc định, option [useGlobalFetch](/vi/api/options.html#useglobalfetch) được thiết lập là `true`, do đó global `$fetch` được override bởi `$auth.$fetch`.
 
-Trong trường hợp bạn muốn sử dụng `$fetch` mặc định của Nuxt, hãy thiết lập `useGlobalFetch: false` trong [options](/options).
+Trong trường hợp bạn muốn sử dụng `$fetch` mặc định của Nuxt, hãy thiết lập `useGlobalFetch: false` trong [options](/vi/api/options#useGlobalFetch).
 :::
