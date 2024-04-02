@@ -49,13 +49,13 @@ export default class HttpService {
 
         try {
           const { token } = await this.$auth.refreshTokens();
-          // Stringify and parse to remove the callback functions (e.g. onResponse, onRequest, etc.)
-          const opts = JSON.parse(JSON.stringify(options));
+          const opts = this.cloneOptions(options);
           opts.headers = opts.headers || {};
-          opts.headers[headerName] = `${type} ${token}`;
+          (opts.headers as any)[headerName] = `${type} ${token}`;
           await this.$fetch(request, {
             ...opts,
             auth: false,
+            retry: false,
             onResponse(ctx) {
               Object.assign(context, ctx);
             },
@@ -152,5 +152,17 @@ export default class HttpService {
       query: { status },
     });
     return this.nuxtApp.runWithContext(() => navigateTo(loginPath));
+  }
+
+  private cloneOptions<T>(options: T) {
+    return (Object.keys(options as object) as (keyof T)[]).reduce(
+      (opts, key) => {
+        const value = options[key];
+        if (!value || typeof value === "function") return opts;
+
+        return { ...opts, [key]: value };
+      },
+      {} as T
+    );
   }
 }
