@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.0.10
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.9...v0.0.10)
+
+### 🩹 Fixes
+
+- Fix retry request missing FormData params ([794ee8a](https://github.com/trandaison/nuxt-3-auth/commit/794ee8a))
+
+### 📖 Documentation
+
+- Fix dead links ([6828769](https://github.com/trandaison/nuxt-3-auth/commit/6828769))
+
+### 🏡 Chore
+
+- Upgrade packages to latest version ([5afa1d3](https://github.com/trandaison/nuxt-3-auth/commit/5afa1d3))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.9
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.7...v0.0.9)
