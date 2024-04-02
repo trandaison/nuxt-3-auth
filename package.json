@@ -51,12 +51,12 @@
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^0.5.4",
     "@nuxt/schema": "^3.8.2",
-    "@nuxt/test-utils": "^3.8.1",
+    "@nuxt/test-utils": "^3.12.0",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.10.3",
     "changelogen": "^0.5.5",
     "eslint": "^8.55.0",
-    "nuxt": "^3.8.2",
+    "nuxt": "^3.11.1",
     "vitepress": "1.0.0-rc.45",
     "vitest": "^0.33.0"
   }
