@@ -1,5 +1,6 @@
 import type { $Fetch, FetchContext } from "ofetch";
 import { navigateTo, useNuxtApp, useRoute, useRouter } from "#imports";
+import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
 import { middleTruncate, HTTP_STATUS_UNAUTHORIZED, AuthStatus } from "../utils";
 import type { AuthConfig, AuthService } from "../../types";
 
@@ -8,6 +9,7 @@ export default class HttpService {
   private nuxtApp;
   private route;
   private router;
+  private loginRoute;
 
   constructor(
     $fetch: $Fetch,
@@ -17,6 +19,8 @@ export default class HttpService {
     this.nuxtApp = useNuxtApp();
     this.route = useRoute();
     this.router = useRouter();
+    const { localeRoute } = useLocalizeRoute();
+    this.loginRoute = localeRoute({ name: this.$configs.routes.login.name });
     this.setup($fetch);
   }
 
@@ -148,7 +152,7 @@ export default class HttpService {
       this.$auth.setReferer(referer);
     }
     const loginPath = this.router.resolve({
-      name: this.$configs.routes.login.name,
+      name: this.loginRoute.name!,
       query: { status },
     });
     return this.nuxtApp.runWithContext(() => navigateTo(loginPath));
