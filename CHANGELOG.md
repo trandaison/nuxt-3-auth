@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.11
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.10...v0.0.11)
+
+### 🩹 Fixes
+
+- Fix error not redirect to login when refresh token failed ([64ab35d](https://github.com/trandaison/nuxt-3-auth/commit/64ab35d))
+- Fix error missing authentication headers after refresh and retry ([524ff0f](https://github.com/trandaison/nuxt-3-auth/commit/524ff0f))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.10
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.9...v0.0.10)
