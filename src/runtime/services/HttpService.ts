@@ -1,5 +1,5 @@
-import type { $Fetch, FetchContext } from "ofetch";
-import { navigateTo, useNuxtApp, useRoute, useRouter } from "#imports";
+import type { $Fetch, FetchContext, FetchOptions } from "ofetch";
+import { navigateTo, useNuxtApp, useRoute } from "#imports";
 import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
 import { middleTruncate, HTTP_STATUS_UNAUTHORIZED, AuthStatus } from "../utils";
 import type { AuthConfig, AuthService } from "../../types";
@@ -8,7 +8,6 @@ export default class HttpService {
   public $fetch!: $Fetch;
   private nuxtApp;
   private route;
-  private router;
   private loginRoute;
 
   constructor(
@@ -18,7 +17,6 @@ export default class HttpService {
   ) {
     this.nuxtApp = useNuxtApp();
     this.route = useRoute();
-    this.router = useRouter();
     const { localeRoute } = useLocalizeRoute();
     this.loginRoute = localeRoute({ name: this.$configs.routes.login.name });
     this.setup($fetch);
@@ -26,7 +24,6 @@ export default class HttpService {
 
   private setup($fetch: $Fetch) {
     const { baseUrl } = this.$configs.endpoints;
-    const { headerName, type } = this.$configs.token;
 
     this.$fetch = $fetch.create({
       baseURL: baseUrl,
@@ -53,13 +50,9 @@ export default class HttpService {
 
         try {
           const { token } = await this.$auth.refreshTokens();
-          const opts = this.cloneOptions(options);
-          opts.headers = opts.headers || {};
-          (opts.headers as any)[headerName] = `${type} ${token}`;
+          const retryOptions = this.buildRetryOptions(options, token);
           await this.$fetch(request, {
-            ...opts,
-            auth: false,
-            retry: false,
+            ...retryOptions,
             onResponse(ctx) {
               Object.assign(context, ctx);
             },
@@ -151,22 +144,30 @@ export default class HttpService {
     if (authMeta !== "guest") {
       this.$auth.setReferer(referer);
     }
-    const loginPath = this.router.resolve({
-      name: this.loginRoute.name!,
-      query: { status },
-    });
-    return this.nuxtApp.runWithContext(() => navigateTo(loginPath));
+    return this.nuxtApp.runWithContext(() =>
+      navigateTo({ ...this.loginRoute, query: { status } })
+    );
   }
 
-  private cloneOptions<T>(options: T) {
-    return (Object.keys(options as object) as (keyof T)[]).reduce(
-      (opts, key) => {
-        const value = options[key];
-        if (!value || typeof value === "function") return opts;
-
-        return { ...opts, [key]: value };
-      },
-      {} as T
-    );
+  private buildRetryOptions(options: FetchOptions, token: string) {
+    const { headerName, type } = this.$configs.token;
+    const headerKeys = options.headers // @ts-ignore
+      ? Array.from(options.headers.keys())
+      : [];
+    const headers = Object.fromEntries([
+      // @ts-ignore
+      ...headerKeys.map((key) => [key, options.headers!.get(key)]),
+      [headerName.toLowerCase(), `${type} ${token}`],
+    ]);
+    return {
+      auth: true,
+      baseURL: options.baseURL,
+      body: options.body,
+      headers,
+      method: options.method,
+      params: options.params,
+      query: options.query,
+      retry: false as const,
+    };
   }
 }
