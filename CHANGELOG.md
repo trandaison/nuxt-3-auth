@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.12
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.11...v0.0.12)
+
+### 🩹 Fixes
+
+- Retry on GET request not working ([27d8de2](https://github.com/trandaison/nuxt-3-auth/commit/27d8de2))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.11
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.10...v0.0.11)
