@@ -9,12 +9,16 @@ export default class HttpService {
   private nuxtApp;
   private route;
   private loginRoute;
+  private headerName: string;
+  private tokenType: string;
 
   constructor(
     $fetch: $Fetch,
     private $configs: AuthConfig,
     private $auth: AuthService
   ) {
+    this.headerName = this.$configs.token.headerName.toLowerCase();
+    this.tokenType = this.$configs.token.type;
     this.nuxtApp = useNuxtApp();
     this.route = useRoute();
     const { localeRoute } = useLocalizeRoute();
@@ -80,15 +84,14 @@ export default class HttpService {
     return res;
   }
 
-  private onRequest(context: FetchContext) {
-    const { options } = context;
-    const { headerName, type } = this.$configs.token;
-    options.headers = (options.headers || {}) as Record<string, string>;
+  private onRequest({ options }: FetchContext) {
+    options.headers = new Headers(options.headers);
     const authOption = options.auth ?? true;
-    if (authOption !== false && this.$auth.accessToken) {
-      options.headers[headerName] = `${type} ${this.$auth.accessToken}`;
+    const { accessToken: token } = this.$auth;
+    if (authOption !== false && token) {
+      options.headers.set(this.headerName, this.getTokenEntry(token));
     } else {
-      options.headers[headerName] = "";
+      options.headers.delete(this.headerName);
     }
   }
 
@@ -150,15 +153,8 @@ export default class HttpService {
   }
 
   private buildRetryOptions(options: FetchOptions, token: string) {
-    const { headerName, type } = this.$configs.token;
-    const headerKeys = options.headers // @ts-ignore
-      ? Array.from(options.headers.keys())
-      : [];
-    const headers = Object.fromEntries([
-      // @ts-ignore
-      ...headerKeys.map((key) => [key, options.headers!.get(key)]),
-      [headerName.toLowerCase(), `${type} ${token}`],
-    ]);
+    const headers = new Headers(options.headers);
+    headers.set(this.headerName, this.getTokenEntry(token));
     return {
       auth: true,
       baseURL: options.baseURL,
@@ -169,5 +165,9 @@ export default class HttpService {
       query: options.query,
       retry: false as const,
     };
+  }
+
+  private getTokenEntry(token: string) {
+    return `${this.tokenType} ${token}`;
   }
 }
