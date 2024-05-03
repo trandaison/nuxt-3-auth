@@ -1,4 +1,4 @@
-import type { RawLocation } from "@intlify/vue-router-bridge";
+import type { RawLocation } from "@intlify/vue-router-bridge/lib/index.js";
 import { ref, computed } from "vue";
 import { navigateTo, useNuxtApp } from "#imports";
 import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
@@ -60,6 +60,7 @@ export const useLogin = ({
 
     const payload = params ?? credentials.value;
     const options = { sessionOnly: sessionOnly ?? !persistent.value };
+    const redirectRoute = getRedirectPath();
 
     function getRedirectPath() {
       return typeof redirectPath === "function"
@@ -70,7 +71,7 @@ export const useLogin = ({
     return $auth
       .login(payload, options)
       .then(async (res) => {
-        await navigateTo(getRedirectPath(), { replace: true });
+        await navigateTo(redirectRoute, { replace: true });
         return res;
       })
       .catch((_error) => {
