@@ -156,13 +156,18 @@ export default class HttpService {
     const headers = new Headers(options.headers);
     headers.set(this.headerName, this.getTokenEntry(token));
     return {
-      auth: true,
       baseURL: options.baseURL,
       body: options.body,
       headers,
       method: options.method,
       params: options.params,
       query: options.query,
+      responseType: options.responseType,
+      ignoreResponseError: options.ignoreResponseError,
+      parseResponse: options.parseResponse,
+      duplex: options.duplex,
+      timeout: options.timeout,
+      auth: true,
       retry: false as const,
     };
   }
