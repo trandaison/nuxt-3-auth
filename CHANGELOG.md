@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.13
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.12...v0.0.13)
+
+### 🩹 Fixes
+
+- Missing options in retry requests ([cb1bc7e](https://github.com/trandaison/nuxt-3-auth/commit/cb1bc7e))
+- Incorrect redirect path ([170266c](https://github.com/trandaison/nuxt-3-auth/commit/170266c))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.12
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.11...v0.0.12)
