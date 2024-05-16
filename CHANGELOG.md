@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.14
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.13...v0.0.14)
+
+### 🩹 Fixes
+
+- Auto logout on api retry error ([df04a7e](https://github.com/trandaison/nuxt-3-auth/commit/df04a7e))
+
+### ❤️ Contributors
+
+- Le Tuan Kiet <kietlt1@nal.vn>
+
 ## v0.0.13
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.12...v0.0.13)
