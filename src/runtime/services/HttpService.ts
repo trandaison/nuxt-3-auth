@@ -1,8 +1,8 @@
-import type { $Fetch, FetchContext, FetchOptions } from "ofetch";
-import { navigateTo, useNuxtApp, useRoute } from "#imports";
 import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
-import { middleTruncate, HTTP_STATUS_UNAUTHORIZED, AuthStatus } from "../utils";
+import { navigateTo, useNuxtApp, useRoute } from "#imports";
+import type { $Fetch, FetchContext, FetchOptions } from "ofetch";
 import type { AuthConfig, AuthService } from "../../types";
+import { AuthStatus, HTTP_STATUS_UNAUTHORIZED, middleTruncate } from "../utils";
 
 export default class HttpService {
   public $fetch!: $Fetch;
@@ -52,18 +52,23 @@ export default class HttpService {
           return;
         }
 
-        try {
-          const { token } = await this.$auth.refreshTokens();
-          const retryOptions = this.buildRetryOptions(options, token);
-          await this.$fetch(request, {
-            ...retryOptions,
-            onResponse(ctx) {
-              Object.assign(context, ctx);
-            },
-          });
-        } catch {
-          await this.onAuthFailure(AuthStatus.Expired);
+        const { token } = await this.$auth.refreshTokens().catch(() => ({
+
+          token: undefined
+        }))
+
+        if (!token) {
+          this.onAuthFailure(AuthStatus.Expired)
+          return;
         }
+
+        const retryOptions = this.buildRetryOptions(options, token);
+        await this.$fetch(request, {
+          ...retryOptions,
+          onResponse(ctx) {
+            Object.assign(context, ctx);
+          },
+        });
       },
     });
   }
@@ -111,10 +116,10 @@ export default class HttpService {
         response.status < 300
           ? "\x1b[32m✅"
           : response.status < 400
-          ? "\x1b[33m👉"
-          : response.status < 500
-          ? "\x1b[31m❌"
-          : "\x1b[31m❗️",
+            ? "\x1b[33m👉"
+            : response.status < 500
+              ? "\x1b[31m❌"
+              : "\x1b[31m❗️",
         response.status,
         "\x1B[0m"
       );
@@ -127,10 +132,10 @@ export default class HttpService {
         response.status < 300
           ? "✅"
           : response.status < 400
-          ? "👉"
-          : response.status < 500
-          ? "❌"
-          : "❗️",
+            ? "👉"
+            : response.status < 500
+              ? "❌"
+              : "❗️",
         response.status,
         previewResponse
       );
