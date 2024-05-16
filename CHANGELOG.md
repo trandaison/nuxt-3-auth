@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.15
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.14...v0.0.15)
+
+### 🏡 Chore
+
+- Update package versions ([5fa60af](https://github.com/trandaison/nuxt-3-auth/commit/5fa60af))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.14
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.13...v0.0.14)
