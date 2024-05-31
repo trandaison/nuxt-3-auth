@@ -16,7 +16,9 @@ Nghĩa là `user` object có thể chứa bất kỳ property nào, điều này
 
 ```ts
 // ts-shim.d.ts
-export type MyUser = {
+import type { User } from '@trandaison/nuxt-3-auth';
+
+export type CustomUser = {
   id: number;
   name: string;
   email: string;
@@ -25,8 +27,8 @@ export type MyUser = {
   // ...
 };
 
-declare module 'nuxt-3-auth/types' {
-  interface User extends MyUser {}
+declare module '@trandaison/nuxt-3-auth' {
+  interface User extends CustomUser {}
 }
 
 export {};

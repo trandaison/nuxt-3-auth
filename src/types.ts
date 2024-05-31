@@ -1,8 +1,8 @@
-import type { Store } from '@pinia/nuxt/dist/runtime/composables';
-import type { Ref } from 'vue';
-import type { Actions, Getters, State } from './runtime/store/auth';
-import HttpService from './runtime/services/HttpService';
-import AuthStorage from './runtime/services/AuthStorage';
+import type { Store } from "pinia";
+import type { Ref } from "vue";
+import type { Actions, Getters, State } from "./runtime/store/auth";
+import HttpService from "./runtime/services/HttpService";
+import AuthStorage from "./runtime/services/AuthStorage";
 
 declare module "#app" {
   interface PageMeta {
@@ -123,8 +123,8 @@ export interface AuthService {
   setReferer(url: string | null): void;
 }
 
-export type AuthStatus = 'unauthorized' | 'expired';
+export type AuthStatus = "unauthorized" | "expired";
 
-export type AuthPageMeta = 'guest' | boolean;
+export type AuthPageMeta = "guest" | boolean;
 
 export type AuthFetchOption = "optional" | boolean;

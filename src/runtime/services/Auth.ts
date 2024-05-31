@@ -9,8 +9,9 @@ import type {
 } from "../../types";
 import AuthStorage from './AuthStorage';
 import HttpService from './HttpService';
-import type { Store } from 'pinia';
-import type { Actions, Getters, State } from '../store/auth';
+import type { Store } from "pinia";
+import type { Ref } from "vue";
+import type { Actions, Getters, State } from "../store/auth";
 
 export class Auth implements AuthService {
   public config!: AuthConfig;
@@ -30,7 +31,7 @@ export class Auth implements AuthService {
     this.storage = new AuthStorage({ authConfig: auth });
   }
 
-  get user() {
+  get user(): Ref<User | null> {
     return this.storage.user;
   }
 
@@ -48,15 +49,15 @@ export class Auth implements AuthService {
     return redirectPath;
   }
 
-  get accessToken() {
+  get accessToken(): string | null {
     return this.storage.accessToken;
   }
 
-  get refreshToken() {
+  get refreshToken(): string | null {
     return this.storage.refreshToken;
   }
 
-  get loggedIn() {
+  get loggedIn(): Ref<boolean> {
     return this.storage.loggedIn;
   }
 
@@ -157,8 +158,8 @@ export class Auth implements AuthService {
       );
       const res = await this.refreshTokensPromise;
       const data = this.getProperty(res, "refresh");
-      const token = this.getToken(data, "token");
-      const refresh_token = this.getToken(data, "refreshToken");
+      const token = this.getToken(data, "token") as string;
+      const refresh_token = this.getToken(data, "refreshToken") as string;
       this.storage.setAuth({ token, refresh_token });
       return { token, refresh_token };
     } catch (error) {

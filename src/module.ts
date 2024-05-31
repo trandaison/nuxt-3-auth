@@ -9,6 +9,8 @@ import {
 import { generate as generateUseLocalizeRouteTemplate } from "./templates/composables/useLocalizeRoute.template";
 import type { AuthOptions, AuthConfig } from "./types";
 
+export * from "./types";
+
 declare module "@nuxt/schema" {
   interface ConfigSchema {
     publicRuntimeConfig?: {
