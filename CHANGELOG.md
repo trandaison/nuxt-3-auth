@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.16
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.15...v0.0.16)
+
+### 🩹 Fixes
+
+- Define type for user does nothing #13 ([#13](https://github.com/trandaison/nuxt-3-auth/issues/13))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.15
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.14...v0.0.15)
