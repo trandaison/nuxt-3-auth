@@ -47,7 +47,8 @@ export default class HttpService {
         // Only retry on requests that have options.auth = true
         if (options.auth !== true) return;
 
-        if (!this.$auth.refreshToken) {
+        const refreshToken = this.$auth.refreshToken();
+        if (!refreshToken) {
           await this.onAuthFailure(AuthStatus.Unauthorized);
           return;
         }
@@ -92,7 +93,7 @@ export default class HttpService {
   private onRequest({ options }: FetchContext) {
     options.headers = new Headers(options.headers);
     const authOption = options.auth ?? true;
-    const { accessToken: token } = this.$auth;
+    const token = this.$auth.accessToken();
     if (authOption !== false && token) {
       options.headers.set(this.headerName, this.getTokenEntry(token));
     } else {

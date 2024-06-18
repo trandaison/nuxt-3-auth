@@ -3,14 +3,21 @@ const { $auth } = useNuxtApp();
 const { user, loggedIn } = $auth;
 const localeRoute = useLocaleRoute();
 
+const fetched = ref(false);
+const error = ref<any>(false);
+
 function fetchUser() {
+  fetched.value = false;
   $auth.fetchUser()
     .then(() => {
-      alert('User fetched successfully!');
+      error.value = false;
     })
     .catch((err) => {
-      alert('Error fetching user, please check the console.');
+      error.value = err;
       console.error(err);
+    })
+    .finally(() => {
+      fetched.value = true;
     });
 }
 </script>
@@ -36,6 +43,7 @@ function fetchUser() {
         Fetch user
       </button>
     </p>
+    <pre v-if="fetched">{{ JSON.stringify(error ? error : user, null, 2) }}</pre>
   </div>
 </template>
 

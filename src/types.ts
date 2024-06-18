@@ -41,16 +41,20 @@ export interface TokenOptions {
   headerName: string;
   type: string;
   property: string;
+  maxAge: number;
 }
 
 export interface RefreshTokenOptions {
   paramName: string;
   property: string;
+  maxAge: number;
 }
 
 export interface CookieOptions {
   ssl: boolean;
   maxAge: number;
+  domain: string;
+  path: string;
 }
 
 export interface MiddlewareOptions {
@@ -106,13 +110,13 @@ export interface AuthService {
   readonly user: Ref<User | null>;
   readonly store: Store<"auth", State, Getters, Actions>;
   readonly redirectPath: string;
-  readonly accessToken: string | null | undefined;
-  readonly refreshToken: string | null | undefined;
   readonly loggedIn: Ref<boolean>;
-  readonly hasTokens: boolean;
-  readonly isSessionExpired: boolean;
-  readonly isSessionEnd: boolean;
   readonly isPersistent: boolean;
+  accessToken: () => string | null | undefined;
+  refreshToken: () => string | null | undefined;
+  hasTokens: () => boolean;
+  isSessionExpired: () => boolean;
+  isSessionEnd: () => boolean;
   login<T = unknown>(
     credentials: Record<string, unknown>,
     options?: { sessionOnly?: boolean }

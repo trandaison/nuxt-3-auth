@@ -1,30 +1,36 @@
-import dayjs from 'dayjs/esm';
-import { jwtDecode } from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 import { useCookie } from "#imports";
 import { storeToRefs } from "pinia";
 import type { AuthConfig, User, AuthTokens } from "../../types";
 import { useAuthStore } from "../store/auth";
 
 export default class AuthStorage {
+  private authConfig;
   private config;
   private cookieOptions: any = { path: "/" };
   public authStore;
   public referer;
   public accessTokenCookie;
   public refreshTokenCookie;
+  public accessTokenExpiration;
+  public refreshTokenExpiration;
   public persistent;
 
   static ACCESS_TOKEN_STORAGE_KEY = "auth.access_token";
   static REFRESH_TOKEN_STORAGE_KEY = "auth.refresh_token";
+  static ACCESS_TOKEN_EXP_KEY = "auth.access_token_expiration";
+  static REFRESH_TOKEN_EXP_KEY = "auth.refresh_token_expiration";
   static FLAG_PERSISTENT_KEY = "auth.persistent";
   static PERSISTENT_VALUE_TRUE = "yes";
   static PERSISTENT_VALUE_FALSE = "no";
   static REDIRECT_KEY = "auth.redirect";
 
   constructor({ authConfig }: { authConfig: AuthConfig }) {
+    this.authConfig = authConfig;
     this.config = authConfig.cookie;
     this.cookieOptions.secure = this.config.ssl;
-    this.cookieOptions.expires = this.cookieExp();
+    this.cookieOptions.domain = this.config.domain;
+    this.cookieOptions.path = this.config.path;
 
     this.referer = useCookie(AuthStorage.REDIRECT_KEY);
     this.accessTokenCookie = useCookie<string | null>(
@@ -35,6 +41,14 @@ export default class AuthStorage {
       AuthStorage.REFRESH_TOKEN_STORAGE_KEY,
       this.cookieOptions
     );
+    this.accessTokenExpiration = useCookie<number | null>(
+      AuthStorage.ACCESS_TOKEN_EXP_KEY,
+      this.cookieOptions
+    ).value;
+    this.refreshTokenExpiration = useCookie<number | null>(
+      AuthStorage.REFRESH_TOKEN_EXP_KEY,
+      this.cookieOptions
+    ).value;
     this.persistent = useCookie<string | null>(
       AuthStorage.FLAG_PERSISTENT_KEY,
       {
@@ -44,38 +58,38 @@ export default class AuthStorage {
     this.authStore = useAuthStore();
   }
 
-  get accessToken() {
-    return this.isAccessTokenExpired ? null : this.accessTokenCookie.value;
+  accessToken() {
+    return this.isAccessTokenExpired() ? null : this.accessTokenCookie.value;
   }
 
-  get refreshToken() {
-    return this.isRefreshTokenExpired ? null : this.refreshTokenCookie.value;
+  refreshToken() {
+    return this.isRefreshTokenExpired() ? null : this.refreshTokenCookie.value;
   }
 
-  get accessTokenExpires() {
-    if (!this.accessTokenCookie.value) return null;
-
-    const decoded = jwtDecode<{ exp: number }>(this.accessTokenCookie.value);
-    return new Date(decoded.exp * 1000);
+  accessTokenExpires() {
+    return this.accessTokenExpiration
+      ? new Date(this.accessTokenExpiration)
+      : null;
   }
 
-  get refreshTokenExpires() {
-    if (!this.refreshTokenCookie.value) return null;
-
-    const decoded = jwtDecode<{ exp: number }>(this.refreshTokenCookie.value);
-    return new Date(decoded.exp * 1000);
+  refreshTokenExpires() {
+    return this.refreshTokenExpiration
+      ? new Date(this.refreshTokenExpiration)
+      : null;
   }
 
-  get isAccessTokenExpired() {
-    if (!this.accessTokenExpires) return true;
+  isAccessTokenExpired() {
+    const accessTokenExp = this.accessTokenExpires();
+    if (!accessTokenExp) return true;
 
-    return this.accessTokenExpires < new Date();
+    return accessTokenExp < new Date();
   }
 
-  get isRefreshTokenExpired() {
-    if (!this.refreshTokenExpires) return true;
+  isRefreshTokenExpired() {
+    const refreshTokenExp = this.refreshTokenExpires();
+    if (!refreshTokenExp) return true;
 
-    return this.refreshTokenExpires < new Date();
+    return refreshTokenExp < new Date();
   }
 
   get user() {
@@ -89,6 +103,34 @@ export default class AuthStorage {
   }
 
   setAuth({ token, refresh_token }: AuthTokens) {
+    const accessTokenMaxAge = this.cookieMaxAge("token", token);
+    const refreshTokenMaxAge = this.cookieMaxAge("refreshToken", refresh_token);
+
+    this.accessTokenCookie = useCookie<string | null>(
+      AuthStorage.ACCESS_TOKEN_STORAGE_KEY,
+      { ...this.cookieOptions, maxAge: accessTokenMaxAge }
+    );
+    this.refreshTokenCookie = useCookie<string | null>(
+      AuthStorage.REFRESH_TOKEN_STORAGE_KEY,
+      { ...this.cookieOptions, maxAge: refreshTokenMaxAge }
+    );
+
+    const accessTokenExpiration = useCookie<number | null>(
+      AuthStorage.ACCESS_TOKEN_EXP_KEY,
+      { ...this.cookieOptions, maxAge: accessTokenMaxAge }
+    );
+    const refreshTokenExpiration = useCookie<number | null>(
+      AuthStorage.REFRESH_TOKEN_EXP_KEY,
+      { ...this.cookieOptions, maxAge: refreshTokenMaxAge }
+    );
+
+    this.accessTokenExpiration = this.maxAgeToDate(accessTokenMaxAge).getTime();
+    this.refreshTokenExpiration =
+      this.maxAgeToDate(refreshTokenMaxAge).getTime();
+
+    accessTokenExpiration.value = this.accessTokenExpiration;
+    refreshTokenExpiration.value = this.refreshTokenExpiration;
+
     this.accessTokenCookie.value = token;
     this.refreshTokenCookie.value = refresh_token;
   }
@@ -121,10 +163,11 @@ export default class AuthStorage {
       ? AuthStorage.PERSISTENT_VALUE_TRUE
       : AuthStorage.PERSISTENT_VALUE_FALSE;
 
-    const cookieOptions = {
-      ...this.cookieOptions,
-      expires: value ? this.cookieExp() : undefined,
-    };
+    const maxAge = Math.max(
+      this.cookieMaxAge("token"),
+      this.cookieMaxAge("refreshToken")
+    );
+    const cookieOptions = { ...this.cookieOptions, maxAge };
 
     this.persistent = useCookie<string | null>(
       AuthStorage.FLAG_PERSISTENT_KEY,
@@ -133,9 +176,18 @@ export default class AuthStorage {
     this.persistent.value = cookieValue;
   }
 
-  private cookieExp() {
-    if (this.config.maxAge === null) return undefined;
+  private cookieMaxAge(tokenType: "token" | "refreshToken", token?: string) {
+    try {
+      if (!token) throw new Error("Token is not provided");
 
-    return dayjs().add(this.config.maxAge, "second").toDate();
+      const decoded = jwtDecode<{ exp: number }>(token);
+      return decoded.exp - Math.ceil(Date.now() / 1000);
+    } catch {
+      return this.authConfig[tokenType].maxAge || this.config.maxAge;
+    }
+  }
+
+  private maxAgeToDate(maxAge: number) {
+    return new Date(Date.now() + maxAge * 1000);
   }
 }
