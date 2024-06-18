@@ -80,22 +80,6 @@ redirectPath: string | null;
 
 The redirect path after successful login.
 
-### `accessToken`
-
-```ts
-accessToken: string | null | undefined;
-```
-
-Contains the value of the access token, returns `null` if not logged in or the token has expired.
-
-### `refreshToken`
-
-```ts
-refreshToken: string | null | undefined;
-```
-
-Contains the value of the refresh token, returns `null` if not logged in or the token has expired.
-
 ### `loggedIn`
 
 ```ts
@@ -108,30 +92,6 @@ A Ref with a value of `true` when logged in, otherwise `false`.
 const { $auth } = useNuxtApp();
 const { loggedIn } = $auth;
 ```
-
-### `hasTokens`
-
-```ts
-hasTokens: boolean;
-```
-
-Has a value of `true` when there are tokens in the cookie and the tokens are still valid (either access token or refresh token).
-
-### `isSessionExpired`
-
-```ts
-isSessionExpired: boolean;
-```
-
-Has a value of `true` when the user is **logged in but the access token has expired** while **the refresh token is still valid**.
-
-### `isSessionEnd`
-
-```ts
-isSessionEnd: boolean;
-```
-
-Has a value of `true` when both the access token and refresh token have expired.
 
 ### `isPersistent`
 
@@ -179,6 +139,46 @@ By default, this instance has the following features:
 - Debug log if the [debug option](/api/options.html#debug) is set to `true`.
 
 ## Methods
+
+### `accessToken`
+
+```ts
+function accessToken(): string | null | undefined;
+```
+
+Contains the value of the access token, returns `null` if not logged in or the token has expired.
+
+### `refreshToken`
+
+```ts
+function refreshToken(): string | null | undefined;
+```
+
+Contains the value of the refresh token, returns `null` if not logged in or the token has expired.
+
+### `hasTokens`
+
+```ts
+function hasTokens(): boolean;
+```
+
+Has a value of `true` when there are tokens in the cookie and the tokens are still valid (either access token or refresh token).
+
+### `isSessionExpired`
+
+```ts
+function isSessionExpired(): boolean;
+```
+
+Has a value of `true` when the user is **logged in but the access token has expired** while **the refresh token is still valid**.
+
+### `isSessionEnd`
+
+```ts
+function isSessionEnd(): boolean;
+```
+
+Has a value of `true` when both the access token and refresh token have expired.
 
 ### `login`
 

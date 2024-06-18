@@ -80,22 +80,6 @@ redirectPath: string | null;
 
 Đường dẫn redirect sau khi đăng nhập thành công.
 
-### `accessToken`
-
-```ts
-accessToken: string | null | undefined;
-```
-
-Chứa giá trị của access token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
-
-### `refreshToken`
-
-```ts
-refreshToken: string | null | undefined;
-```
-
-Chứa giá trị của refesh token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
-
 ### `loggedIn`
 
 ```ts
@@ -108,31 +92,6 @@ Là một `Ref` có giá trị `true` khi đã log in, ngược lại có giá t
 const { $auth } = useNuxtApp();
 const { loggedIn } = $auth;
 ```
-
-### `hasTokens`
-
-```ts
-hasTokens: boolean;
-```
-
-Có giá trị `true` khi có token trong cookie và token còn hạn sử dụng (bất kể access token hoặc refresh token).
-
-### `isSessionExpired`
-
-```ts
-isSessionExpired: boolean;
-```
-
-Có giá trị `true` khi user đã log in nhưng **access token đã hết hạn** nhưng **refresh token vẫn còn hạn sử dụng**.
-
-### `isSessionEnd`
-
-```ts
-isSessionEnd: boolean;
-```
-
-Có giá trị `true` khi cả access token và refresh token đều đã hết hạn.
-
 ### `isPersistent`
 
 ```ts
@@ -179,6 +138,47 @@ Instance này mặc định được thiết lập sẵn một số cài đặt 
 - Debug log nếu set [option debug](/vi/api/options.html#debug) là `true`.
 
 ## Methods
+
+
+### `accessToken`
+
+```ts
+function accessToken(): string | null | undefined;
+```
+
+Chứa giá trị của access token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
+
+### `refreshToken`
+
+```ts
+function refreshToken(): string | null | undefined;
+```
+
+Chứa giá trị của refesh token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
+
+### `hasTokens`
+
+```ts
+function hasTokens(): boolean;
+```
+
+Có giá trị `true` khi có token trong cookie và token còn hạn sử dụng (bất kể access token hoặc refresh token).
+
+### `isSessionExpired`
+
+```ts
+function isSessionExpired(): boolean;
+```
+
+Có giá trị `true` khi user đã log in nhưng **access token đã hết hạn** nhưng **refresh token vẫn còn hạn sử dụng**.
+
+### `isSessionEnd`
+
+```ts
+function isSessionEnd(): boolean;
+```
+
+Có giá trị `true` khi cả access token và refresh token đều đã hết hạn.
 
 ### `login`
 
