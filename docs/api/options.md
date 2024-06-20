@@ -143,12 +143,14 @@ token: {
   headerName: 'Authorization',
   type: 'Bearer',
   property: 'token',
+  maxAge: 365 * 24 * 60 * 60, // 1 year
 }
 ```
 
 - `headerName` The name of the header containing the token.
 - `type` The type of token.
 - `property` The name of the token key in the response object from the login and refresh token API. In the [example above](#login), `property` has a value of `token`.
+- `maxAge` The maximum age of the token in seconds. If the token is a JWT, the module will use the `exp` claim to calculate the expiration time. If the token is not a JWT, the module will use this `maxAge` value or the `cookie.maxAge` value to calculate the expiration time.
 
 ## `refreshToken`
 
@@ -156,11 +158,13 @@ token: {
 refreshToken: {
   paramName: 'token',
   property: 'refresh_token',
+  maxAge: 365 * 24 * 60 * 60, // 1 year
 }
 ```
 
 - `paramName` The name of the parameter containing the refresh token in the request body.
 - `property` The name of the property containing the refresh token in the response object from the login and refresh token API. In the [example above](#login), `property` has a value of `refresh_token`.
+- `maxAge` The maximum age of the refresh token in seconds. If the refresh token is a JWT, the module will use the `exp` claim to calculate the expiration time. If the refresh token is not a JWT, the module will use this `maxAge` value or the `cookie.maxAge` value to calculate the expiration time.
 
 :::tip
 This module requires the login and refresh token API to return the same property containing the refresh token.
@@ -172,13 +176,15 @@ This module requires the login and refresh token API to return the same property
 cookie: {
   ssl: false,
   maxAge: 365 * 24 * 60 * 60, // 1 year
+  domain: '',
+  path: '/',
 }
 ```
 
 - `ssl` Set `true` to enable `Secure` flag for cookies (recommended if possible).
-
-
 - `maxAge` The maximum age of the cookie in seconds. The default value is 1 year. Make sure the value is larger than the `maxAge` of both access token and refresh token.
+- `domain` The domain of the cookie. If not set, the cookie will be set to the domain of the current page.
+- `path` The path of the cookie. The default value is `/`.
 
 ## `middleware`
 

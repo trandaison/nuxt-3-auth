@@ -143,12 +143,14 @@ token: {
   headerName: 'Authorization',
   type: 'Bearer',
   property: 'token',
+  maxAge: 365 * 24 * 60 * 60, // 1 year
 }
 ```
 
 - `headerName` Tên header đính kèm access token khi gọi API.
 - `type` Tên loại token.
 - `property` Tên key của token dùng để đọc vào object response từ api login. Như trong [ví dụ ở trên](#login) thì `property` có giá trị là `access_token`.
+- `maxAge` Set giá trị `max-age` cho access token. Nếu token là JWT thì maxAge sẽ được sử dụng để tính toán dựa trên thời gian hết hạn của token. Ngược lại, giá trị `maxAge` này hoặc option `cookie.maxAge` sẽ được sử dụng để tính toán thời gian hết hạn của token.
 
 ## `refreshToken`
 
@@ -156,11 +158,13 @@ token: {
 refreshToken: {
   paramName: 'token',
   property: 'refresh_token',
+  maxAge: 365 * 24 * 60 * 60, // 1 year
 }
 ```
 
 - `paramName` Tên của param khi gọi API refresh token.
 - `property` Tên key của token dùng để đọc vào object response từ api login & refresh token. Như trong [ví dụ ở trên](#login) thì `property` có giá trị là `refresh_token`.
+- `maxAge` Set giá trị `max-age` cho refresh token. Nếu token là JWT thì maxAge sẽ được sử dụng để tính toán dựa trên thời gian hết hạn của token. Ngược lại, giá trị `maxAge` này hoặc option `cookie.maxAge` sẽ được sử dụng để tính toán thời gian hết hạn của token.
 
 :::tip
 Hiện tại module này yêu cầu API login và refresh token trả về cùng một property chứa refresh token.
@@ -172,13 +176,15 @@ Hiện tại module này yêu cầu API login và refresh token trả về cùng
 cookie: {
   ssl: false,
   maxAge: 365 * 24 * 60 * 60, // 1 year
+  domain: '',
+  path: '/',
 }
 ```
 
 - `ssl` Set `true` to enable `Secure` flag for cookies (khuyến khích sử dụng nếu có thể).
-
-
 - `maxAge` Set giá trị `max-age` cho cookies. Hãy đảm bảo giá trị `maxAge` lớn hơn hoặc bằng thời gian expires của access token và refresh token.
+- `domain` Tên domain của cookie.
+- `path` Đường dẫn của cookie.
 
 ## `middleware`
 

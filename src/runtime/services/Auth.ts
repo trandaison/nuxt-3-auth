@@ -49,31 +49,28 @@ export class Auth implements AuthService {
     return redirectPath;
   }
 
-  get accessToken(): string | null {
-    return this.storage.accessToken;
+  accessToken(): string | null {
+    return this.storage.accessToken();
   }
 
-  get refreshToken(): string | null {
-    return this.storage.refreshToken;
+  refreshToken(): string | null {
+    return this.storage.refreshToken();
   }
 
   get loggedIn(): Ref<boolean> {
     return this.storage.loggedIn;
   }
 
-  get hasTokens() {
-    const { refreshToken, accessToken } = this.storage;
-    return !!(refreshToken || accessToken);
+  hasTokens() {
+    return !!(this.storage.refreshToken() || this.storage.accessToken());
   }
 
-  get isSessionExpired() {
-    const { accessToken, refreshToken } = this.storage;
-    return !!(refreshToken && !accessToken);
+  isSessionExpired() {
+    return !!(this.storage.refreshToken() && !this.storage.accessToken());
   }
 
-  get isSessionEnd() {
-    const { accessToken, refreshToken } = this.storage;
-    return !!(accessToken && refreshToken);
+  isSessionEnd() {
+    return !!(this.storage.accessToken() && this.storage.refreshToken());
   }
 
   get isPersistent() {
@@ -150,11 +147,10 @@ export class Auth implements AuthService {
 
   async refreshTokens() {
     try {
-      const { refreshToken } = this.storage;
       this.refreshTokensPromise ??= this.httpService.call(
         this.config.endpoints.refresh.method,
         this.config.endpoints.refresh.url,
-        { [this.config.refreshToken.paramName]: refreshToken }
+        { [this.config.refreshToken.paramName]: this.storage.refreshToken() }
       );
       const res = await this.refreshTokensPromise;
       const data = this.getProperty(res, "refresh");

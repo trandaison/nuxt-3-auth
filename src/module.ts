@@ -60,14 +60,18 @@ export default defineNuxtModule<AuthOptions>({
       headerName: "Authorization",
       type: "Bearer",
       property: "token",
+      maxAge: 365 * 24 * 60 * 60,
     },
     refreshToken: {
       paramName: "token",
       property: "refresh_token",
+      maxAge: 365 * 24 * 60 * 60,
     },
     cookie: {
       ssl: false,
       maxAge: 365 * 24 * 60 * 60,
+      domain: "",
+      path: "/",
     },
     middleware: {
       global: true,
