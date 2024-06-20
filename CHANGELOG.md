@@ -1,5 +1,37 @@
 # Changelog
 
+## v0.1.1
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.16...v0.1.1)
+
+### 🚀 Enhancements
+
+- Support any type of token ([13a7e75](https://github.com/trandaison/nuxt-3-auth/commit/13a7e75))
+
+### 📖 Documentation
+
+- Add maxAge for token/refresh token ([1f7cc90](https://github.com/trandaison/nuxt-3-auth/commit/1f7cc90))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
+## v0.1.0
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.16...v0.1.0)
+
+### 🚀 Enhancements
+
+- Support any type of token ([13a7e75](https://github.com/trandaison/nuxt-3-auth/commit/13a7e75))
+
+### 📖 Documentation
+
+- Add maxAge for token/refresh token ([1f7cc90](https://github.com/trandaison/nuxt-3-auth/commit/1f7cc90))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.0.16
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.15...v0.0.16)
