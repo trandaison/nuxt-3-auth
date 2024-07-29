@@ -89,7 +89,8 @@ export class Auth implements AuthService {
       this.loginPromise ??= this.httpService.call<T>(
         this.config.endpoints.login.method,
         this.config.endpoints.login.url,
-        credentials
+        credentials,
+        { headers: this.config.endpoints.login.headers }
       );
       const res = await this.loginPromise;
       const data = this.getProperty(res, "login");
@@ -114,7 +115,7 @@ export class Auth implements AuthService {
         this.config.endpoints.user.method,
         this.config.endpoints.user.url,
         undefined,
-        { auth: true }
+        { auth: true, headers: this.config.endpoints.user.headers }
       );
       const res = await this.fetchUserPromise;
       const data = this.getProperty(res, "user");
@@ -133,7 +134,9 @@ export class Auth implements AuthService {
       if (callApi) {
         this.logoutPromise ??= this.httpService.call<unknown>(
           this.config.endpoints.logout.method,
-          this.config.endpoints.logout.url
+          this.config.endpoints.logout.url,
+          undefined,
+          { headers: this.config.endpoints.logout.headers }
         );
         await this.logoutPromise;
       }
@@ -150,7 +153,8 @@ export class Auth implements AuthService {
       this.refreshTokensPromise ??= this.httpService.call(
         this.config.endpoints.refresh.method,
         this.config.endpoints.refresh.url,
-        { [this.config.refreshToken.paramName]: this.storage.refreshToken() }
+        { [this.config.refreshToken.paramName]: this.storage.refreshToken() },
+        { headers: this.config.endpoints.refresh.headers }
       );
       const res = await this.refreshTokensPromise;
       const data = this.getProperty(res, "refresh");

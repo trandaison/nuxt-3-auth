@@ -20,6 +20,7 @@ export interface EndpointOption {
   url: string;
   method?: string;
   property?: string;
+  headers?: Record<string, any>;
 }
 
 export interface AuthEndpointOptions {
@@ -69,6 +70,7 @@ export interface RedirectOptions {
 
 export interface AuthConfig {
   endpoints: AuthEndpointOptions;
+  headers?: Record<string, any>;
   token: TokenOptions;
   refreshToken: RefreshTokenOptions;
   redirect: RedirectOptions;
@@ -84,6 +86,7 @@ export interface AuthConfig {
 
 export interface AuthOptions {
   endpoints?: Partial<AuthEndpointOptions>;
+  headers?: Record<string, any>;
   token?: Partial<TokenOptions>;
   refreshToken?: Partial<RefreshTokenOptions>;
   cookie?: Partial<CookieOptions>;

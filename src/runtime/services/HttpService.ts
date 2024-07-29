@@ -32,10 +32,6 @@ export default class HttpService {
     this.$fetch = $fetch.create({
       baseURL: baseUrl,
 
-      headers: {
-        Accept: "application/json",
-      },
-
       onRequest: this.onRequest.bind(this),
 
       onResponse: async (context) => {
@@ -54,12 +50,11 @@ export default class HttpService {
         }
 
         const { token } = await this.$auth.refreshTokens().catch(() => ({
-
-          token: undefined
-        }))
+          token: undefined,
+        }));
 
         if (!token) {
-          this.onAuthFailure(AuthStatus.Expired)
+          this.onAuthFailure(AuthStatus.Expired);
           return;
         }
 
@@ -91,7 +86,11 @@ export default class HttpService {
   }
 
   private onRequest({ options }: FetchContext) {
-    options.headers = new Headers(options.headers);
+    options.headers = new Headers({
+      Accept: "application/json",
+      ...this.$configs.headers,
+      ...options.headers,
+    });
     const authOption = options.auth ?? true;
     const token = this.$auth.accessToken();
     if (authOption !== false && token) {
