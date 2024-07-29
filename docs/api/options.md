@@ -6,6 +6,7 @@ The top level of the `auth` options in `nuxt.config.js` looks like this:
 {
   auth: {
     endpoints: object,
+    headers: object,
     token: object,
     refreshToken: object,
     redirect: object,
@@ -25,6 +26,12 @@ The top level of the `auth` options in `nuxt.config.js` looks like this:
 
 An object containing information about the endpoints for authentication.
 
+## `headers`
+
+An object containing the headers to be sent with [`$fetch`](/api/$auth.html#fetch) requests.
+
+This option is useful when you need to send headers with every request, for example, to send an client id, or to set the content type.
+
 ### `baseUrl`
 
 ```ts
@@ -40,6 +47,7 @@ login: {
   url: '/login',
   method: 'POST',
   property: '',
+  headers: undefined,
 }
 ```
 
@@ -48,6 +56,7 @@ An object containing information about the API login endpoint.
 - `url`: Path of the API login.
 - `method`: Method of the API login.
 - `property`: The name of the property containing the response data from the API.
+- `headers`: The headers to be sent with the login request.
 
 For example, if your API login has a response object like this:
 
@@ -67,13 +76,14 @@ Then you need to set `property` to `data.tokens`.
 ### `logout`
 
 ```ts
-logout: { url: '/logout', method: 'DELETE' }
+logout: { url: '/logout', method: 'DELETE', headers: undefined }
 ```
 
 An object containing information about the API logout endpoint.
 
 - `url`: Path of the API logout.
 - `method`: Method of the API logout.
+- `headers`: The headers to be sent with the logout request.
 
 ### `refresh`
 
@@ -82,6 +92,7 @@ refresh: {
   url: '/refresh_tokens',
   method: 'POST',
   property: '',
+  headers: undefined
 }
 ```
 
@@ -90,6 +101,7 @@ An object containing information about the API refresh token endpoint.
 - `url`: Path of the API refresh token.
 - `method`: Method of the API refresh token.
 - `property`: The name of the property containing the response data from the API.
+- `headers`: The headers to be sent with the refresh token request.
 
 For example, if your API refresh tokens have a response object like this:
 
@@ -113,6 +125,7 @@ user: {
   url: '/me',
   method: 'GET',
   property: '',
+  headers: undefined
 }
 ```
 
@@ -121,6 +134,7 @@ An object containing information about the API fetch user info endpoint.
 - `url`: Path of the API fetch user info.
 - `method`: Method of the API fetch user info.
 - `property`: The name of the property containing the response data from the API.
+- `headers`: The headers to be sent with the fetch user info request.
 
 For example, if your API fetch user info has a response object like this:
 
