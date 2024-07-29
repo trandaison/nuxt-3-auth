@@ -22,20 +22,29 @@ Top level của `auth` options trong `nuxt.config.js` như sau:
 }
 ```
 
-## `endpoints`
-
-object chứa thông tin các endpoint cho việc authen.
-
 ## `headers`
 
 Object chứa các headers sẽ được gửi cùng với các request được tạo ra bởi [`$fetch`](/api/$auth.html#fetch).
 
 Option này sẽ hữu ích khi bạn cần gửi custom header trong mọi request, ví dụ như gửi client id, hoặc set content type.
 
+```ts
+headers: {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'max-age=604800',
+}
+```
+
+## `endpoints`
+
+object chứa thông tin các endpoint cho việc authen.
+
 ### `baseUrl`
 
 ```ts
-baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+endpoints: {
+  baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+}
 ```
 
 Base URL của API dùng cho authen.
@@ -43,15 +52,17 @@ Base URL của API dùng cho authen.
 ### `login`
 
 ```ts
-login: {
-  url: '/login',
-  method: 'POST',
-  property: '',
-  headers: undefined,
+endpoints: {
+  login: {
+    url: '/login',
+    method: 'POST',
+    property: '',
+    headers: undefined,
+  }
 }
 ```
 
-Object chứa thông tin của endpoint api login.
+Object chứa thông tin của endpoint API login.
 
 - `url`: Path của API login.
 - `method`: Phương thức của API login.
@@ -76,10 +87,16 @@ Thì bạn cần set `property` là `data.tokens`.
 ### `logout`
 
 ```ts
-logout: { url: '/logout', method: 'DELETE', headers: undefined }
+endpoints: {
+  logout: {
+    url: '/logout',
+    method: 'DELETE',
+    headers: undefined
+  }
+}
 ```
 
-Object chứa thông tin của endpoint api logout.
+Object chứa thông tin của endpoint API logout.
 
 - `url`: Path của API logout.
 - `method`: Phương thức của API logout.
@@ -88,15 +105,17 @@ Object chứa thông tin của endpoint api logout.
 ### `refresh`
 
 ```ts
-refresh: {
-  url: '/refresh_tokens',
-  method: 'POST',
-  property: '',
-  headers: undefined,
+endpoints: {
+  refresh: {
+    url: '/refresh_tokens',
+    method: 'POST',
+    property: '',
+    headers: undefined,
+  }
 }
 ```
 
-Object chứa thông tin của endpoint api refresh token.
+Object chứa thông tin của endpoint API refresh token.
 
 - `url`: Path của API refresh token.
 - `method`: Phương thức của API refresh token.
@@ -121,15 +140,17 @@ Thì bạn cần set `property` là `data.tokens`.
 ### `user`
 
 ```ts
-user: {
-  url: '/me',
-  method: 'GET',
-  property: '',
-  headers: undefined,
+endpoints: {
+  user: {
+    url: '/me',
+    method: 'GET',
+    property: '',
+    headers: undefined,
+  }
 }
 ```
 
-Object chứa thông tin của endpoint api fetch user info.
+Object chứa thông tin của endpoint API fetch user info.
 
 - `url`: Path của API fetch user info.
 - `method`: Phương thức của API fetch user info.
@@ -239,10 +260,12 @@ rewriteRedirects: boolean = true;
 ### `login`
 
 ```ts
-login: {
-  name: 'login',
-  file: resolve(__dirname, './pages/login.vue'),
-  path: '/login',
+routes: {
+  login: {
+    name: 'login',
+    file: resolve(__dirname, './pages/login.vue'),
+    path: '/login',
+  }
 }
 ```
 
@@ -253,10 +276,12 @@ login: {
 ### `logout`
 
 ```ts
-logout: {
-  name: 'logout',
-  path: '/logout',
-  file: resolve(__dirname, './pages/logout.vue'),
+routes: {
+  logout: {
+    name: 'logout',
+    path: '/logout',
+    file: resolve(__dirname, './pages/logout.vue'),
+  }
 }
 ```
 
