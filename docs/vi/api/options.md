@@ -6,6 +6,7 @@ Top level của `auth` options trong `nuxt.config.js` như sau:
 {
   auth: {
     endpoints: object,
+    headers: object,
     token: object,
     refreshToken: object,
     redirect: object,
@@ -25,6 +26,12 @@ Top level của `auth` options trong `nuxt.config.js` như sau:
 
 object chứa thông tin các endpoint cho việc authen.
 
+## `headers`
+
+Object chứa các headers sẽ được gửi cùng với các request được tạo ra bởi [`$fetch`](/api/$auth.html#fetch).
+
+Option này sẽ hữu ích khi bạn cần gửi custom header trong mọi request, ví dụ như gửi client id, hoặc set content type.
+
 ### `baseUrl`
 
 ```ts
@@ -40,6 +47,7 @@ login: {
   url: '/login',
   method: 'POST',
   property: '',
+  headers: undefined,
 }
 ```
 
@@ -48,6 +56,7 @@ Object chứa thông tin của endpoint api login.
 - `url`: Path của API login.
 - `method`: Phương thức của API login.
 - `property`: Tên thuộc tính chứa data response từ API.
+- `headers`: Các headers sẽ được gửi cùng với request login.
 
 Ví dụ API login của bạn có object response như sau:
 
@@ -67,13 +76,14 @@ Thì bạn cần set `property` là `data.tokens`.
 ### `logout`
 
 ```ts
-logout: { url: '/logout', method: 'DELETE' }
+logout: { url: '/logout', method: 'DELETE', headers: undefined }
 ```
 
 Object chứa thông tin của endpoint api logout.
 
 - `url`: Path của API logout.
 - `method`: Phương thức của API logout.
+- `headers`: Các headers sẽ được gửi cùng với request logout.
 
 ### `refresh`
 
@@ -82,6 +92,7 @@ refresh: {
   url: '/refresh_tokens',
   method: 'POST',
   property: '',
+  headers: undefined,
 }
 ```
 
@@ -90,6 +101,7 @@ Object chứa thông tin của endpoint api refresh token.
 - `url`: Path của API refresh token.
 - `method`: Phương thức của API refresh token.
 - `property`: Tên thuộc tính chứa data response từ API.
+- `headers`: Các headers sẽ được gửi cùng với request refresh token.
 
 Ví dụ API refresh tokens của bạn có object response như sau:
 
@@ -113,6 +125,7 @@ user: {
   url: '/me',
   method: 'GET',
   property: '',
+  headers: undefined,
 }
 ```
 
@@ -121,6 +134,7 @@ Object chứa thông tin của endpoint api fetch user info.
 - `url`: Path của API fetch user info.
 - `method`: Phương thức của API fetch user info.
 - `property`: Tên thuộc tính chứa data response từ API.
+- `headers`: Các headers sẽ được gửi cùng với request fetch user info.
 
 Ví dụ API fetch user info của bạn có object response như sau:
 
