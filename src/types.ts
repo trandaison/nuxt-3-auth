@@ -68,6 +68,8 @@ export interface RedirectOptions {
   home: string;
 }
 
+export type RoutesOptions = Record<"login" | "logout", AuthRouteRaw>;
+
 export interface AuthConfig {
   endpoints: AuthEndpointOptions;
   headers?: Record<string, any>;
@@ -77,7 +79,7 @@ export interface AuthConfig {
   cookie: CookieOptions;
   middleware: MiddlewareOptions;
   rewriteRedirects: boolean;
-  routes: Record<string, AuthRouteRaw>;
+  routes: RoutesOptions;
   debug: boolean;
   plugins: string[];
   useGlobalFetch: boolean;
@@ -93,7 +95,7 @@ export interface AuthOptions {
   middleware: MiddlewareOptions;
   redirect?: Partial<RedirectOptions>;
   rewriteRedirects?: boolean;
-  routes?: Record<string, AuthRouteRaw>;
+  routes?: RoutesOptions;
   debug?: boolean;
   plugins?: string[];
   useGlobalFetch?: boolean;
