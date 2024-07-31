@@ -21,21 +21,29 @@ The top level of the `auth` options in `nuxt.config.js` looks like this:
   }
 }
 ```
-
-## `endpoints`
-
-An object containing information about the endpoints for authentication.
-
 ## `headers`
 
 An object containing the headers to be sent with [`$fetch`](/api/$auth.html#fetch) requests.
 
 This option is useful when you need to send headers with every request, for example, to send an client id, or to set the content type.
 
+```ts
+headers: {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'max-age=604800',
+}
+```
+
+## `endpoints`
+
+An object containing information about the endpoints for authentication.
+
 ### `baseUrl`
 
 ```ts
-baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+endpoints: {
+  baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
+}
 ```
 
 The base URL of the API used for authentication.
@@ -43,22 +51,24 @@ The base URL of the API used for authentication.
 ### `login`
 
 ```ts
-login: {
-  url: '/login',
-  method: 'POST',
-  property: '',
-  headers: undefined,
+endpoints: {
+  login: {
+    url: '/login',
+    method: 'POST',
+    property: '',
+    headers: undefined,
+  }
 }
 ```
 
-An object containing information about the API login endpoint.
+An object containing information about the login API.
 
-- `url`: Path of the API login.
-- `method`: Method of the API login.
+- `url`: Path of the login API.
+- `method`: Method of the login API.
 - `property`: The name of the property containing the response data from the API.
 - `headers`: The headers to be sent with the login request.
 
-For example, if your API login has a response object like this:
+For example, if your login API has a response object like this:
 
 ```json
 {
@@ -76,34 +86,42 @@ Then you need to set `property` to `data.tokens`.
 ### `logout`
 
 ```ts
-logout: { url: '/logout', method: 'DELETE', headers: undefined }
+endpoints: {
+  logout: {
+    url: '/logout',
+    method: 'DELETE',
+    headers: undefined
+  }
+}
 ```
 
-An object containing information about the API logout endpoint.
+An object containing information about the logout API.
 
-- `url`: Path of the API logout.
-- `method`: Method of the API logout.
+- `url`: Path of the logout API.
+- `method`: Method of the logout API.
 - `headers`: The headers to be sent with the logout request.
 
 ### `refresh`
 
 ```ts
-refresh: {
-  url: '/refresh_tokens',
-  method: 'POST',
-  property: '',
-  headers: undefined
+endpoints: {
+  refresh: {
+    url: '/refresh_tokens',
+    method: 'POST',
+    property: '',
+    headers: undefined
+  }
 }
 ```
 
-An object containing information about the API refresh token endpoint.
+An object containing information about the refresh token API.
 
-- `url`: Path of the API refresh token.
-- `method`: Method of the API refresh token.
+- `url`: Path of the refresh token API.
+- `method`: Method of the refresh token API.
 - `property`: The name of the property containing the response data from the API.
 - `headers`: The headers to be sent with the refresh token request.
 
-For example, if your API refresh tokens have a response object like this:
+For example, if your refresh tokens API have a response object like this:
 
 ```json
 {
@@ -121,22 +139,24 @@ Then you need to set `property` to `data.tokens`.
 ### `user`
 
 ```ts
-user: {
-  url: '/me',
-  method: 'GET',
-  property: '',
-  headers: undefined
+endpoints: {
+  user: {
+    url: '/me',
+    method: 'GET',
+    property: '',
+    headers: undefined
+  }
 }
 ```
 
-An object containing information about the API fetch user info endpoint.
+An object containing information about the fetch user info API.
 
-- `url`: Path of the API fetch user info.
-- `method`: Method of the API fetch user info.
+- `url`: Path of the fetch user info API.
+- `method`: Method of the fetch user info API.
 - `property`: The name of the property containing the response data from the API.
 - `headers`: The headers to be sent with the fetch user info request.
 
-For example, if your API fetch user info has a response object like this:
+For example, if your fetch user info API has a response object like this:
 
 ```json
 {
@@ -239,10 +259,12 @@ Register authentication pages including `login` and `logout`. By default, these 
 ### `login`
 
 ```ts
-login: {
-  name: 'login',
-  file: resolve(__dirname, './pages/login.vue'),
-  path: '/login',
+routes: {
+  login: {
+    name: 'login',
+    path: '/login',
+    file: resolve(__dirname, './pages/login.vue'),
+  }
 }
 ```
 
@@ -253,10 +275,12 @@ login: {
 ### `logout`
 
 ```ts
-logout: {
-  name: 'logout',
-  path: '/logout',
-  file: resolve(__dirname, './pages/logout.vue'),
+routes: {
+  logout: {
+    name: 'logout',
+    path: '/logout',
+    file: resolve(__dirname, './pages/logout.vue'),
+  }
 }
 ```
 
