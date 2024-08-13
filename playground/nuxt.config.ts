@@ -2,11 +2,14 @@ export default defineNuxtConfig({
   experimental: {
     appManifest: false,
   },
+
   modules: ["@pinia/nuxt", "../src/module", "@nuxtjs/i18n"],
+
   i18n: {
     locales: ["en", "fr"],
     vueI18n: "i18n.config.ts",
   },
+
   auth: {
     endpoints: {
       baseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
@@ -52,5 +55,7 @@ export default defineNuxtConfig({
     useI18n: true,
     debug: true,
   },
+
   devtools: { enabled: true },
+  compatibilityDate: "2024-08-13",
 });
