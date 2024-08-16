@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.1.4
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.1...v0.1.4)
+
+### 🚀 Enhancements
+
+- Add custom header to fetch instance ([5af577d](https://github.com/trandaison/nuxt-3-auth/commit/5af577d))
+- Support refresh token by header ([a995442](https://github.com/trandaison/nuxt-3-auth/commit/a995442))
+
+### 📖 Documentation
+
+- Add docs for fetch custom header ([abe0c8c](https://github.com/trandaison/nuxt-3-auth/commit/abe0c8c))
+- Update docs for routes options ([4cd60f4](https://github.com/trandaison/nuxt-3-auth/commit/4cd60f4))
+
+### 🏡 Chore
+
+- Update type of routes in options ([ccbbb73](https://github.com/trandaison/nuxt-3-auth/commit/ccbbb73))
+- Update nuxt version ([ff278e3](https://github.com/trandaison/nuxt-3-auth/commit/ff278e3))
+- Correct version in package.json ([fcc7b02](https://github.com/trandaison/nuxt-3-auth/commit/fcc7b02))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+- Tuyen <songtuyen97@gmail.com>
+
 ## v0.1.1
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.0.16...v0.1.1)
