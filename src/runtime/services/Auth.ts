@@ -7,8 +7,8 @@ import type {
   AuthService,
   User,
 } from "../../types";
-import AuthStorage from './AuthStorage';
-import HttpService from './HttpService';
+import AuthStorage from "./AuthStorage";
+import HttpService from "./HttpService";
 import type { Store } from "pinia";
 import type { Ref } from "vue";
 import type { Actions, Getters, State } from "../store/auth";
@@ -150,11 +150,14 @@ export class Auth implements AuthService {
 
   async refreshTokens() {
     try {
+      const body = this.buildRefreshBody();
+      const headers = this.buildRefreshHeaders();
+
       this.refreshTokensPromise ??= this.httpService.call(
         this.config.endpoints.refresh.method,
         this.config.endpoints.refresh.url,
-        { [this.config.refreshToken.paramName]: this.storage.refreshToken() },
-        { headers: this.config.endpoints.refresh.headers }
+        body,
+        { headers }
       );
       const res = await this.refreshTokensPromise;
       const data = this.getProperty(res, "refresh");
@@ -185,5 +188,22 @@ export class Auth implements AuthService {
   protected getToken(data: any, type: "token" | "refreshToken") {
     const { property } = this.config[type];
     return get(data, property);
+  }
+
+  private buildRefreshBody() {
+    const { paramName, type } = this.config.refreshToken;
+    return type === "param"
+      ? { [paramName]: this.storage.refreshToken() }
+      : undefined;
+  }
+
+  private buildRefreshHeaders() {
+    const headers = { ...this.config.endpoints.refresh.headers };
+    if (this.config.refreshToken.type !== "param") {
+      headers[this.config.refreshToken.paramName] = `${
+        this.config.token.type
+      } ${this.storage.refreshToken()}`.trim();
+    }
+    return headers;
   }
 }

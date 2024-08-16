@@ -96,6 +96,16 @@ export default class HttpService {
     if (authOption !== false && token) {
       options.headers.set(this.headerName, this.getTokenEntry(token));
     } else {
+      const isRefreshByHeader = this.$configs.refreshToken.type !== "param";
+      const isSameHeaderName =
+        this.headerName === this.$configs.refreshToken.paramName;
+      /**
+       * Avoid delete the refresh token header
+       * when the header name of the refresh token is same as
+       * the header name of the access token
+       */
+      if (isRefreshByHeader && isSameHeaderName) return;
+
       options.headers.delete(this.headerName);
     }
   }

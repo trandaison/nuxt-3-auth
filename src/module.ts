@@ -67,6 +67,7 @@ export default defineNuxtModule<AuthOptions>({
       maxAge: 365 * 24 * 60 * 60,
     },
     refreshToken: {
+      type: "param",
       paramName: "token",
       property: "refresh_token",
       maxAge: 365 * 24 * 60 * 60,
