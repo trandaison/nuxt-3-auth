@@ -191,12 +191,14 @@ token: {
 
 ```ts
 refreshToken: {
+  type: 'param',
   paramName: 'token',
   property: 'refresh_token',
   maxAge: 365 * 24 * 60 * 60, // 1 year
 }
 ```
 
+- `type` mặc định có giá trị `'param'`, đồng nghĩa với việc refresh token sẽ được gửi đi trong request body dưới dạng một prameter. Nếu bạn muốn gửi token dưới dạng header thì bạn có thể set `type` của refresh token (ví dụ `Bearer`).
 - `paramName` Tên của param khi gọi API refresh token.
 - `property` Tên key của token dùng để đọc vào object response từ api login & refresh token. Như trong [ví dụ ở trên](#login) thì `property` có giá trị là `refresh_token`.
 - `maxAge` Set giá trị `max-age` cho refresh token. Nếu token là JWT thì maxAge sẽ được sử dụng để tính toán dựa trên thời gian hết hạn của token. Ngược lại, giá trị `maxAge` này hoặc option `cookie.maxAge` sẽ được sử dụng để tính toán thời gian hết hạn của token.

@@ -46,6 +46,7 @@ export interface TokenOptions {
 }
 
 export interface RefreshTokenOptions {
+  type: string;
   paramName: string;
   property: string;
   maxAge: number;

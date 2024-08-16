@@ -190,13 +190,15 @@ token: {
 
 ```ts
 refreshToken: {
+  type: 'param',
   paramName: 'token',
   property: 'refresh_token',
   maxAge: 365 * 24 * 60 * 60, // 1 year
 }
 ```
 
-- `paramName` The name of the parameter containing the refresh token in the request body.
+- `type` is `'param'` by default, which means the refresh token will be sent in the request body as a parameter. If you want to attach the refresh token to the request headers, set a different value for the token type (e.g. `Bearer`).
+- `paramName` The name of the parameter/header containing the refresh token in the request body/headers.
 - `property` The name of the property containing the refresh token in the response object from the login and refresh token API. In the [example above](#login), `property` has a value of `refresh_token`.
 - `maxAge` The maximum age of the refresh token in seconds. If the refresh token is a JWT, the module will use the `exp` claim to calculate the expiration time. If the refresh token is not a JWT, the module will use this `maxAge` value or the `cookie.maxAge` value to calculate the expiration time.
 
