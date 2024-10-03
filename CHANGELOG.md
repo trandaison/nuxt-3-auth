@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.5
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.4...v0.1.5)
+
+### 🩹 Fixes
+
+- TypeError: Headers constructor ([4aad9d4](https://github.com/trandaison/nuxt-3-auth/commit/4aad9d4))
+
+### 🏡 Chore
+
+- Update types ([7b3e850](https://github.com/trandaison/nuxt-3-auth/commit/7b3e850))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.1.4
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.1...v0.1.4)
