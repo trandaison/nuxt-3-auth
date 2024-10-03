@@ -20,9 +20,9 @@ export default async function authMiddleware(to: RouteLocationNormalized) {
   });
   const homePath = localeRoute(authConfig.redirect.home ?? "/");
 
-  const isLoggedIn = $auth.hasTokens();
-  const isSessionEnd = $auth.isSessionEnd();
-  const isSessionExpired = $auth.isSessionExpired();
+  const isLoggedIn = $auth.hasTokens;
+  const isSessionEnd = $auth.isSessionEnd;
+  const isSessionExpired = $auth.isSessionExpired;
   const isGuestAuth = authMeta === "guest";
   const isAuthRequired = authMeta === true;
   const isAuthDefined = authMeta && !isLoggedIn;

@@ -118,11 +118,11 @@ export interface AuthService {
   readonly redirectPath: string;
   readonly loggedIn: Ref<boolean>;
   readonly isPersistent: boolean;
-  accessToken: () => string | null | undefined;
-  refreshToken: () => string | null | undefined;
-  hasTokens: () => boolean;
-  isSessionExpired: () => boolean;
-  isSessionEnd: () => boolean;
+  readonly accessToken: string | null;
+  readonly refreshToken: string | null;
+  readonly hasTokens: boolean;
+  readonly isSessionExpired: boolean;
+  readonly isSessionEnd: boolean;
   login<T = unknown>(
     credentials: Record<string, unknown>,
     options?: { sessionOnly?: boolean }

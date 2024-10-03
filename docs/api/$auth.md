@@ -138,12 +138,10 @@ By default, this instance has the following features:
 - Automatically refresh the access token if it has expired (when the request returns a 401 status code), then retry the request.
 - Debug log if the [debug option](/api/options.html#debug) is set to `true`.
 
-## Methods
-
 ### `accessToken`
 
 ```ts
-function accessToken(): string | null | undefined;
+accessToken: string | null;
 ```
 
 Contains the value of the access token, returns `null` if not logged in or the token has expired.
@@ -151,7 +149,7 @@ Contains the value of the access token, returns `null` if not logged in or the t
 ### `refreshToken`
 
 ```ts
-function refreshToken(): string | null | undefined;
+refreshToken: string | null;
 ```
 
 Contains the value of the refresh token, returns `null` if not logged in or the token has expired.
@@ -159,7 +157,7 @@ Contains the value of the refresh token, returns `null` if not logged in or the 
 ### `hasTokens`
 
 ```ts
-function hasTokens(): boolean;
+hasTokens: boolean;
 ```
 
 Has a value of `true` when there are tokens in the cookie and the tokens are still valid (either access token or refresh token).
@@ -167,7 +165,7 @@ Has a value of `true` when there are tokens in the cookie and the tokens are sti
 ### `isSessionExpired`
 
 ```ts
-function isSessionExpired(): boolean;
+isSessionExpired: boolean;
 ```
 
 Has a value of `true` when the user is **logged in but the access token has expired** while **the refresh token is still valid**.
@@ -175,10 +173,12 @@ Has a value of `true` when the user is **logged in but the access token has expi
 ### `isSessionEnd`
 
 ```ts
-function isSessionEnd(): boolean;
+isSessionEnd: boolean;
 ```
 
 Has a value of `true` when both the access token and refresh token have expired.
+
+## Methods
 
 ### `login`
 
