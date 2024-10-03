@@ -1,6 +1,6 @@
 import { useRequestEvent } from '#imports';
 import cookie, { type CookieSerializeOptions } from 'cookie';
-import { setCookie as _setCookie, deleteCookie, type H3Event, type EventHandlerRequest } from 'h3';
+import { setCookie as _setCookie, deleteCookie } from 'h3';
 
 export default class UniversalCookie {
   private requestEvent;
