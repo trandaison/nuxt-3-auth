@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.1.6
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.5...v0.1.6)
+
+### 🩹 Fixes
+
+- User is missing in global server side middleware ([82c8029](https://github.com/trandaison/nuxt-3-auth/commit/82c8029))
+
+### 💅 Refactors
+
+- Remove useCookie hook from AuthService ([073dc6e](https://github.com/trandaison/nuxt-3-auth/commit/073dc6e))
+
+### 📖 Documentation
+
+- Update type of accessToken from function to property ([471f92b](https://github.com/trandaison/nuxt-3-auth/commit/471f92b))
+
+### 🏡 Chore
+
+- Remove unused imports ([8f3d674](https://github.com/trandaison/nuxt-3-auth/commit/8f3d674))
+- Update version @nuxt/module-builder ([b46e631](https://github.com/trandaison/nuxt-3-auth/commit/b46e631))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.1.5
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.4...v0.1.5)
