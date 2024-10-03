@@ -90,7 +90,7 @@ export class Auth implements AuthService {
         this.config.endpoints.login.method,
         this.config.endpoints.login.url,
         credentials,
-        { headers: this.config.endpoints.login.headers }
+        { headers: new Headers({ ...this.config.endpoints.login.headers }) }
       );
       const res = await this.loginPromise;
       const data = this.getProperty(res, "login");
@@ -115,7 +115,10 @@ export class Auth implements AuthService {
         this.config.endpoints.user.method,
         this.config.endpoints.user.url,
         undefined,
-        { auth: true, headers: this.config.endpoints.user.headers }
+        {
+          auth: true,
+          headers: new Headers({ ...this.config.endpoints.user.headers }),
+        }
       );
       const res = await this.fetchUserPromise;
       const data = this.getProperty(res, "user");
@@ -136,7 +139,7 @@ export class Auth implements AuthService {
           this.config.endpoints.logout.method,
           this.config.endpoints.logout.url,
           undefined,
-          { headers: this.config.endpoints.logout.headers }
+          { headers: new Headers({ ...this.config.endpoints.logout.headers }) }
         );
         await this.logoutPromise;
       }
@@ -204,6 +207,6 @@ export class Auth implements AuthService {
         this.config.token.type
       } ${this.storage.refreshToken()}`.trim();
     }
-    return headers;
+    return new Headers(headers);
   }
 }
