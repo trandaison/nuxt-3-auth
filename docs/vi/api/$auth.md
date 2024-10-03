@@ -137,13 +137,10 @@ Instance này mặc định được thiết lập sẵn một số cài đặt 
 - Tự động refresh token khi request trả về lỗi `401 Unauthorized`, sau đó retry lại request.
 - Debug log nếu set [option debug](/vi/api/options.html#debug) là `true`.
 
-## Methods
-
-
 ### `accessToken`
 
 ```ts
-function accessToken(): string | null | undefined;
+accessToken: string | null;
 ```
 
 Chứa giá trị của access token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
@@ -151,7 +148,7 @@ Chứa giá trị của access token, trả về `null` nếu chưa đăng nhậ
 ### `refreshToken`
 
 ```ts
-function refreshToken(): string | null | undefined;
+refreshToken: string | null;
 ```
 
 Chứa giá trị của refesh token, trả về `null` nếu chưa đăng nhập hoặc token đã hết hạn.
@@ -159,7 +156,7 @@ Chứa giá trị của refesh token, trả về `null` nếu chưa đăng nhậ
 ### `hasTokens`
 
 ```ts
-function hasTokens(): boolean;
+hasTokens: boolean;
 ```
 
 Có giá trị `true` khi có token trong cookie và token còn hạn sử dụng (bất kể access token hoặc refresh token).
@@ -167,7 +164,7 @@ Có giá trị `true` khi có token trong cookie và token còn hạn sử dụn
 ### `isSessionExpired`
 
 ```ts
-function isSessionExpired(): boolean;
+isSessionExpired: boolean;
 ```
 
 Có giá trị `true` khi user đã log in nhưng **access token đã hết hạn** nhưng **refresh token vẫn còn hạn sử dụng**.
@@ -175,10 +172,12 @@ Có giá trị `true` khi user đã log in nhưng **access token đã hết hạ
 ### `isSessionEnd`
 
 ```ts
-function isSessionEnd(): boolean;
+isSessionEnd: boolean;
 ```
 
 Có giá trị `true` khi cả access token và refresh token đều đã hết hạn.
+
+## Methods
 
 ### `login`
 
