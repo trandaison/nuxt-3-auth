@@ -12,16 +12,11 @@ import type { AuthOptions, AuthConfig } from "./types";
 export * from "./types";
 
 declare module "@nuxt/schema" {
-  interface ConfigSchema {
-    publicRuntimeConfig?: {
-      auth: AuthConfig;
-    };
+  interface RuntimeConfig {
+    auth: AuthConfig;
   }
-  interface NuxtConfig {
-    auth?: AuthOptions;
-  }
-  interface NuxtOptions {
-    auth?: AuthOptions;
+  interface PublicRuntimeConfig {
+    auth: AuthConfig;
   }
 }
 

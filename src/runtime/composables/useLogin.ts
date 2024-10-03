@@ -1,4 +1,4 @@
-import type { RawLocation } from "@intlify/vue-router-bridge/lib/index.js";
+import type { RawLocation } from '@intlify/vue-router-bridge/lib/index.js';
 import { ref, computed } from "vue";
 import { navigateTo, useNuxtApp } from "#imports";
 import { useLocalizeRoute } from "#build/useLocalizeRoute.mjs";
