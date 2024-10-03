@@ -42,35 +42,35 @@ export class Auth implements AuthService {
   get redirectPath() {
     let redirectPath = this.config.redirect.home ?? "/";
 
-    if (this.config.rewriteRedirects && this.storage.referer.value) {
-      redirectPath = this.storage.referer.value;
+    if (this.config.rewriteRedirects && this.storage.referer) {
+      redirectPath = this.storage.referer;
     }
 
     return redirectPath;
   }
 
-  accessToken(): string | null {
-    return this.storage.accessToken();
+  get accessToken() {
+    return this.storage.accessToken;
   }
 
-  refreshToken(): string | null {
-    return this.storage.refreshToken();
+  get refreshToken() {
+    return this.storage.refreshToken;
   }
 
   get loggedIn(): Ref<boolean> {
     return this.storage.loggedIn;
   }
 
-  hasTokens() {
-    return !!(this.storage.refreshToken() || this.storage.accessToken());
+  get hasTokens() {
+    return !!(this.storage.refreshToken || this.storage.accessToken);
   }
 
-  isSessionExpired() {
-    return !!(this.storage.refreshToken() && !this.storage.accessToken());
+  get isSessionExpired() {
+    return !!(this.storage.refreshToken && !this.storage.accessToken);
   }
 
-  isSessionEnd() {
-    return !!(this.storage.accessToken() && this.storage.refreshToken());
+  get isSessionEnd() {
+    return !!(this.storage.accessToken && this.storage.refreshToken);
   }
 
   get isPersistent() {
@@ -177,7 +177,7 @@ export class Auth implements AuthService {
   }
 
   setReferer(url: string | null) {
-    this.storage.setReferer(url);
+    this.storage.referer = url;
   }
 
   protected getProperty(
@@ -196,7 +196,7 @@ export class Auth implements AuthService {
   private buildRefreshBody() {
     const { paramName, type } = this.config.refreshToken;
     return type === "param"
-      ? { [paramName]: this.storage.refreshToken() }
+      ? { [paramName]: this.storage.refreshToken }
       : undefined;
   }
 
@@ -205,7 +205,7 @@ export class Auth implements AuthService {
     if (this.config.refreshToken.type !== "param") {
       headers[this.config.refreshToken.paramName] = `${
         this.config.token.type
-      } ${this.storage.refreshToken()}`.trim();
+      } ${this.storage.refreshToken}`.trim();
     }
     return new Headers(headers);
   }
