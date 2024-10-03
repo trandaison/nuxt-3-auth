@@ -1,5 +1,6 @@
 import defu from "defu";
 import {
+  addRouteMiddleware,
   defineNuxtModule,
   addPlugin,
   addComponent,
@@ -105,7 +106,8 @@ export default defineNuxtModule<AuthOptions>({
       { ...moduleOptions }
     );
 
-    const { useI18n } = nuxt.options.runtimeConfig.public.auth;
+    const { useI18n, middleware: middlewareOptions } =
+      nuxt.options.runtimeConfig.public.auth;
 
     // Create `useLocalizeRoute` composable file
     addTemplate({
@@ -142,6 +144,15 @@ export default defineNuxtModule<AuthOptions>({
     });
 
     addPlugin(resolver.resolve("./runtime/plugin"));
+
+    addRouteMiddleware(
+      {
+        ...middlewareOptions,
+        name: "auth",
+        path: resolver.resolve("./runtime/middleware/auth"),
+      },
+      { prepend: true }
+    );
 
     // Register auth plugins
     const { plugins } = nuxt.options.runtimeConfig.public.auth;

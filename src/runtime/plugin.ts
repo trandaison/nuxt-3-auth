@@ -1,10 +1,5 @@
-import {
-  addRouteMiddleware,
-  defineNuxtPlugin,
-  useRuntimeConfig,
-} from "#imports";
+import { defineNuxtPlugin, useRuntimeConfig } from "#imports";
 import { Auth } from "./services/Auth";
-import authMiddleware from "./middleware/auth";
 
 declare module "#app" {
   interface NuxtApp {
@@ -22,7 +17,6 @@ export default defineNuxtPlugin(() => {
   const {
     public: { auth },
   } = useRuntimeConfig();
-  addRouteMiddleware("auth", authMiddleware, { ...auth.middleware });
   // @ts-ignore
   const authService = new Auth($fetch);
   if (auth.useGlobalFetch) {
