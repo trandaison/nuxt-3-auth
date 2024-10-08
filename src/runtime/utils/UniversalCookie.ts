@@ -1,5 +1,5 @@
 import { useRequestEvent } from '#imports';
-import cookie, { type CookieSerializeOptions } from 'cookie';
+import { parse, serialize, type CookieSerializeOptions } from 'cookie-es';
 import { setCookie as _setCookie, deleteCookie } from 'h3';
 
 export default class UniversalCookie {
@@ -14,7 +14,7 @@ export default class UniversalCookie {
   constructor() {
     this.requestEvent = useRequestEvent();
     if (import.meta.server && this.requestEvent) {
-      this.cache = cookie.parse(this.requestEvent?.headers?.get('cookie') || '');
+      this.cache = parse(this.requestEvent?.headers?.get('cookie') || '');
     }
   }
 
@@ -23,7 +23,7 @@ export default class UniversalCookie {
       return this.requestEvent ? this.cache![name] : undefined;
     }
 
-    return cookie.parse(document.cookie)[name];
+    return parse(document.cookie)[name];
   }
 
   setCookie(name: string, value: string | null, options: CookieSerializeOptions = {}) {
@@ -37,7 +37,7 @@ export default class UniversalCookie {
       _setCookie(this.requestEvent, name, value, options);
       this.cache![name] = value;
     } else {
-      document.cookie = cookie.serialize(name, value, options);
+      document.cookie = serialize(name, value, options);
     }
   }
 
@@ -47,7 +47,7 @@ export default class UniversalCookie {
       deleteCookie(this.requestEvent, name, options);
       delete this.cache![name];
     } else {
-      document.cookie = cookie.serialize(name, '', { ...options, maxAge: -1 });
+      document.cookie = serialize(name, '', { ...options, maxAge: -1 });
     }
   }
 }
