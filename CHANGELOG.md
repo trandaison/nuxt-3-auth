@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.7
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.6...v0.1.7)
+
+### 🚀 Enhancements
+
+- Switch to cookie-es ([ddc694a](https://github.com/trandaison/nuxt-3-auth/commit/ddc694a))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.1.6
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.5...v0.1.6)
