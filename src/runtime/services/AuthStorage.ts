@@ -1,4 +1,4 @@
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { storeToRefs } from "pinia";
 import type { AuthConfig, User, AuthTokens } from "../../types";
 import { useAuthStore } from "../store/auth";
