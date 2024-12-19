@@ -50,15 +50,18 @@ export const useLogin = ({
     params?: Record<string, unknown>,
     { sessionOnly }: { sessionOnly?: boolean } = {}
   ) => {
+    if (params) {
+      credentials.value = params;
+    }
+
     if (invalid.value) {
-      error.value = true;
+      error.value = new Error(invalidErrorMessage);
       return Promise.resolve();
     }
 
     pending.value = true;
     resetError();
 
-    const payload = params ?? credentials.value;
     const options = { sessionOnly: sessionOnly ?? !persistent.value };
     const redirectRoute = getRedirectPath();
 
@@ -69,7 +72,7 @@ export const useLogin = ({
     }
 
     return $auth
-      .login(payload, options)
+      .login(credentials.value, options)
       .then(async (res) => {
         await navigateTo(redirectRoute, { replace: true });
         return res;
