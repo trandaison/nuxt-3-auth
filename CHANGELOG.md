@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.2.0
+
+[compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.7...v0.2.0)
+
+### 🚀 Enhancements
+
+- Integrate Pinia for state management and enhance Auth service ([33080a1](https://github.com/trandaison/nuxt-3-auth/commit/33080a1))
+
+### 🩹 Fixes
+
+- Unable to submit login ([f09a5f8](https://github.com/trandaison/nuxt-3-auth/commit/f09a5f8))
+
+### 💅 Refactors
+
+- Remove unused imports from plugin.ts ([2f6b9ad](https://github.com/trandaison/nuxt-3-auth/commit/2f6b9ad))
+
+### 🏡 Chore
+
+- Set the typescript version to ~5.6 ([3ed32c8](https://github.com/trandaison/nuxt-3-auth/commit/3ed32c8))
+
+### ❤️ Contributors
+
+- Trandaison ([@trandaison](http://github.com/trandaison))
+
 ## v0.1.7
 
 [compare changes](https://github.com/trandaison/nuxt-3-auth/compare/v0.1.6...v0.1.7)
