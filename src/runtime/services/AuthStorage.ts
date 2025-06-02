@@ -20,13 +20,13 @@ export default class AuthStorage {
   static PERSISTENT_VALUE_FALSE = "no";
   static REDIRECT_KEY = "auth.redirect";
 
-  constructor({ authConfig }: { authConfig: AuthConfig }) {
+  constructor({ authConfig, pinia }: { authConfig: AuthConfig, pinia: any }) {
     this.authConfig = authConfig;
     this.config = authConfig.cookie;
     this.cookieOptions.secure = this.config.ssl;
     this.cookieOptions.domain = this.config.domain;
     this.cookieOptions.path = this.config.path;
-    this.authStore = useAuthStore();
+    this.authStore = useAuthStore(pinia);
     this.cookie = new UniversalCookie();
   }
 

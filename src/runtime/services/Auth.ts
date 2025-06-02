@@ -22,13 +22,13 @@ export class Auth implements AuthService {
   private logoutPromise: Promise<unknown> | null = null;
   private refreshTokensPromise: Promise<unknown> | null = null;
 
-  constructor($fetch: $Fetch) {
+  constructor($fetch: $Fetch, pinia: any) {
     const {
       public: { auth },
     } = useRuntimeConfig();
     this.config = auth;
     this.httpService = new HttpService($fetch, this.config, this);
-    this.storage = new AuthStorage({ authConfig: auth });
+    this.storage = new AuthStorage({ authConfig: auth, pinia });
   }
 
   get user(): Ref<User | null> {
