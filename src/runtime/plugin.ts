@@ -1,7 +1,5 @@
-import { defineNuxtPlugin, useAuth, useRuntimeConfig } from "#imports";
-import { createPinia, setActivePinia } from 'pinia';
+import { defineNuxtPlugin, useRuntimeConfig } from "#imports";
 import { Auth } from "./services/Auth";
-import { useAuthStore } from './store/auth';
 
 declare module "#app" {
   interface NuxtApp {
