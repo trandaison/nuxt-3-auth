@@ -13,9 +13,7 @@ export type Actions = {
   setUser(user: User | null): void;
 };
 
-export const useAuthStore = defineStore({
-  id: 'auth',
-
+export const useAuthStore = defineStore('auth', {
   state: (): State => {
     return {
       user: null,
